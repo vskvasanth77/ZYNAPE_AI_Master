@@ -1,0 +1,959 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#050510" />
+    <meta name="color-scheme" content="dark" />
+
+    <title>Zynape — Intelligence. Engineered.</title>
+    <meta name="description" content="Zynape builds intelligent systems, cloud infrastructure, and adaptive software for ambitious teams. Intelligence. Engineered." />
+    <meta name="keywords" content="AI, automation, cloud, cybersecurity, web, data, design, engineering" />
+
+    <meta property="og:title" content="Zynape — Intelligence. Engineered." />
+    <meta property="og:description" content="A robot-guided journey through six engineering domains." />
+    <meta property="og:type" content="website" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+    <script type="module" crossorigin src="/assets/index-Ca69GzTo.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/gsap-SFc2wnMY.js">
+    <link rel="modulepreload" crossorigin href="/assets/lenis-BEW9yqGz.js">
+    <link rel="modulepreload" crossorigin href="/assets/three-CUAGYjuj.js">
+    <link rel="stylesheet" crossorigin href="/assets/index-BQyZeATO.css">
+  </head>
+
+  <body>
+    <!-- Persistent 3D background canvas -->
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+    <!-- Aurora gradient layer -->
+    <div class="aurora" aria-hidden="true">
+      <div class="aurora__blob aurora__blob--1"></div>
+      <div class="aurora__blob aurora__blob--2"></div>
+      <div class="aurora__blob aurora__blob--3"></div>
+    </div>
+
+    <!-- Speech bubble for robot -->
+    <div id="speech-bubble" class="speech-bubble" aria-live="polite">
+      <span class="speech-bubble__text"></span>
+      <span class="speech-bubble__tail"></span>
+    </div>
+
+    <!-- Floating navigation -->
+    <nav class="zynape-nav" id="main-nav" aria-label="Primary">
+      <a href="#home" class="nav-item is-active" data-section="home" data-edit="nav.home">Home</a>
+      <a href="#solutions" class="nav-item" data-section="solutions" data-edit="nav.solutions">Solutions</a>
+      <a href="#operations" class="nav-item" data-section="operations" data-edit="nav.operations">Operations</a>
+      <a href="#service" class="nav-item" data-section="service" data-edit="nav.service">Service</a>
+      <a href="#contact" class="nav-item" data-section="contact" data-edit="nav.contact">Contact</a>
+      <span class="nav-indicator" aria-hidden="true"></span>
+    </nav>
+
+    <!-- Scroll progress bar -->
+    <div class="scroll-progress" aria-hidden="true"><span></span></div>
+
+    <main id="page">
+      <!-- =================================================== HOME =================================================== -->
+      <section id="home" class="section section--home" data-section-name="home">
+        <div class="home__layers" aria-hidden="true">
+          <div class="layer layer--1"></div>
+          <div class="layer layer--2"></div>
+          <div class="layer layer--grid"></div>
+        </div>
+
+        <div class="home__content">
+          <p class="home__eyebrow"><span class="dot"></span><span data-edit="home.eyebrow">Engineering studio · Est. 2024</span></p>
+          <h1 class="home__logo" aria-label="Zynape">
+            <span class="char" data-char="Z">Z</span>
+            <span class="char" data-char="Y">Y</span>
+            <span class="char" data-char="N">N</span>
+            <span class="char" data-char="A">A</span>
+            <span class="char" data-char="P">P</span>
+            <span class="char" data-char="E">E</span>
+          </h1>
+          <p class="home__tagline" data-edit="home.tagline">Intelligence. <em>Engineered.</em></p>
+          <p class="home__sub" data-edit="home.sub">We design and ship adaptive systems — from autonomous AI pipelines to cloud-native platforms — for teams that refuse to ship ordinary products.</p>
+          <div class="home__actions">
+            <a href="#solutions" class="btn btn--primary home__cta">
+              <span data-edit="home.ctaPrimary">Explore Zynape</span>
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a href="#contact" class="btn btn--ghost" data-edit="home.ctaSecondary">Start a project</a>
+          </div>
+
+          <div class="home__stats" aria-label="Studio highlights">
+            <div class="stat"><span class="stat__num" data-count="42" data-edit="home.stats[0].num" data-edit-attr="data-count">0</span><span class="stat__label" data-edit="home.stats[0].label">Shipped systems</span></div>
+            <div class="stat"><span class="stat__num" data-count="6" data-edit="home.stats[1].num" data-edit-attr="data-count">0</span><span class="stat__label" data-edit="home.stats[1].label">Domains</span></div>
+            <div class="stat"><span class="stat__num" data-count="99" data-edit="home.stats[2].num" data-edit-attr="data-count">0</span><span class="stat__label" data-edit="home.stats[2].label">% on-time</span></div>
+          </div>
+        </div>
+
+        <div class="home__scroll-hint" aria-hidden="true">
+          <span data-edit="home.scrollHint">Scroll</span>
+          <span class="line"></span>
+        </div>
+      </section>
+
+      <!-- =================================================== SOLUTIONS =================================================== -->
+      <section id="solutions" class="section section--solutions" data-section-name="solutions">
+        <header class="section__head">
+          <p class="section__eyebrow" data-edit="solutions.eyebrow">01 · Solutions</p>
+          <h2 class="section__title" data-edit="solutions.title">Six domains. <em>One studio.</em></h2>
+          <p class="section__lede" data-edit="solutions.lede">Pick a discipline. Open it. Each card unfolds into its own world — a deep dive into how we approach the work.</p>
+        </header>
+
+        <div class="domain-grid">
+          <article class="domain-card" data-domain="ai" tabindex="0" aria-label="Open AI & Automation">
+            <div class="domain-card__inner">
+              <div class="domain-card__icon">
+                <svg viewBox="0 0 64 64" aria-hidden="true">
+                  <circle cx="32" cy="32" r="6" fill="none" stroke="currentColor" stroke-width="2"/>
+                  <circle cx="12" cy="14" r="3" fill="currentColor"/>
+                  <circle cx="52" cy="14" r="3" fill="currentColor"/>
+                  <circle cx="12" cy="50" r="3" fill="currentColor"/>
+                  <circle cx="52" cy="50" r="3" fill="currentColor"/>
+                  <line x1="15" y1="16" x2="27" y2="29" stroke="currentColor" stroke-width="1.4"/>
+                  <line x1="49" y1="16" x2="37" y2="29" stroke="currentColor" stroke-width="1.4"/>
+                  <line x1="15" y1="48" x2="27" y2="35" stroke="currentColor" stroke-width="1.4"/>
+                  <line x1="49" y1="48" x2="37" y2="35" stroke="currentColor" stroke-width="1.4"/>
+                </svg>
+              </div>
+              <h3 class="domain-card__title" data-edit="solutions.domains[0].title">AI &amp; Automation</h3>
+              <p class="domain-card__desc" data-edit="solutions.domains[0].desc">Intelligent systems that learn, decide, and adapt at production scale.</p>
+              <span class="domain-card__cta">Open <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </div>
+            <div class="domain-card__detail">
+              <button class="domain-card__close" aria-label="Close">
+                <svg viewBox="0 0 24 24" width="22" height="22"><path d="M6 6l12 12M18 6l-12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </button>
+              <div class="domain-detail__layout">
+                <div class="domain-detail__copy">
+                  <p class="domain-detail__eyebrow" data-edit="solutions.domains[0].detail.eyebrow">AI &amp; Automation</p>
+                  <h4 class="domain-detail__title" data-edit="solutions.domains[0].detail.title">Engines that <em>think</em>.</h4>
+                  <p class="domain-detail__lede" data-edit="solutions.domains[0].detail.lede">From retrieval-augmented assistants to autonomous decision pipelines, we ship AI that is observable, evaluable, and safe.</p>
+                  <ul class="domain-detail__list">
+                    <li data-edit="solutions.domains[0].detail.list[0]">RAG &amp; agentic systems with tool use</li>
+                    <li data-edit="solutions.domains[0].detail.list[1]">Custom evaluation harnesses &amp; guardrails</li>
+                    <li data-edit="solutions.domains[0].detail.list[2]">Vector indexes, hybrid retrieval, model routing</li>
+                    <li data-edit="solutions.domains[0].detail.list[3]">LLMOps: tracing, cost telemetry, A/B</li>
+                  </ul>
+                  <div class="domain-detail__metrics">
+                    <div><strong data-edit="solutions.domains[0].detail.metrics[0].strong">3.4×</strong><span data-edit="solutions.domains[0].detail.metrics[0].label">throughput vs. baseline</span></div>
+                    <div><strong data-edit="solutions.domains[0].detail.metrics[1].strong">78%</strong><span data-edit="solutions.domains[0].detail.metrics[1].label">cost reduction</span></div>
+                    <div><strong data-edit="solutions.domains[0].detail.metrics[2].strong">p50&nbsp;420ms</strong><span data-edit="solutions.domains[0].detail.metrics[2].label">response time</span></div>
+                  </div>
+                </div>
+                <div class="domain-detail__viz">
+                  <canvas data-domain-canvas="ai"></canvas>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="domain-card" data-domain="cloud" tabindex="0" aria-label="Open Cloud Infrastructure">
+            <div class="domain-card__inner">
+              <div class="domain-card__icon">
+                <svg viewBox="0 0 64 64" aria-hidden="true">
+                  <path d="M18 44 a10 10 0 0 1 2-19.6 a14 14 0 0 1 26.6 4.6 a8 8 0 0 1 -2.6 15z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <h3 class="domain-card__title" data-edit="solutions.domains[1].title">Cloud Infrastructure</h3>
+              <p class="domain-card__desc" data-edit="solutions.domains[1].desc">Resilient, multi-region platforms with infrastructure-as-code from day one.</p>
+              <span class="domain-card__cta">Open <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </div>
+            <div class="domain-card__detail">
+              <button class="domain-card__close" aria-label="Close">
+                <svg viewBox="0 0 24 24" width="22" height="22"><path d="M6 6l12 12M18 6l-12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </button>
+              <div class="domain-detail__layout">
+                <div class="domain-detail__copy">
+                  <p class="domain-detail__eyebrow" data-edit="solutions.domains[1].detail.eyebrow">Cloud Infrastructure</p>
+                  <h4 class="domain-detail__title" data-edit="solutions.domains[1].detail.title">Platforms that <em>don't blink</em>.</h4>
+                  <p class="domain-detail__lede" data-edit="solutions.domains[1].detail.lede">Multi-cloud, multi-region, multi-team. We build the platform substrate before the product team needs to ask.</p>
+                  <ul class="domain-detail__list">
+                    <li data-edit="solutions.domains[1].detail.list[0]">Kubernetes, service mesh, GitOps delivery</li>
+                    <li data-edit="solutions.domains[1].detail.list[1]">Terraform / Pulumi — every resource declarative</li>
+                    <li data-edit="solutions.domains[1].detail.list[2]">Observability: traces, metrics, structured logs</li>
+                    <li data-edit="solutions.domains[1].detail.list[3]">Cost guardrails &amp; capacity planning</li>
+                  </ul>
+                  <div class="domain-detail__metrics">
+                    <div><strong data-edit="solutions.domains[1].detail.metrics[0].strong">99.99%</strong><span data-edit="solutions.domains[1].detail.metrics[0].label">availability</span></div>
+                    <div><strong data-edit="solutions.domains[1].detail.metrics[1].strong">4&nbsp;min</strong><span data-edit="solutions.domains[1].detail.metrics[1].label">median deploy</span></div>
+                    <div><strong data-edit="solutions.domains[1].detail.metrics[2].strong">6 regions</strong><span data-edit="solutions.domains[1].detail.metrics[2].label">active-active</span></div>
+                  </div>
+                </div>
+                <div class="domain-detail__viz">
+                  <canvas data-domain-canvas="cloud"></canvas>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="domain-card" data-domain="cybersec" tabindex="0" aria-label="Open Cybersecurity">
+            <div class="domain-card__inner">
+              <div class="domain-card__icon">
+                <svg viewBox="0 0 64 64" aria-hidden="true">
+                  <path d="M32 6 L52 14 V32 C52 44 42 54 32 58 C22 54 12 44 12 32 V14 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                  <path d="M22 32 L29 39 L42 26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <h3 class="domain-card__title" data-edit="solutions.domains[2].title">Cybersecurity</h3>
+              <p class="domain-card__desc" data-edit="solutions.domains[2].desc">Threat modeling, zero-trust architecture, and continuous security posture.</p>
+              <span class="domain-card__cta">Open <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </div>
+            <div class="domain-card__detail">
+              <button class="domain-card__close" aria-label="Close">
+                <svg viewBox="0 0 24 24" width="22" height="22"><path d="M6 6l12 12M18 6l-12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </button>
+              <div class="domain-detail__layout">
+                <div class="domain-detail__copy">
+                  <p class="domain-detail__eyebrow" data-edit="solutions.domains[2].detail.eyebrow">Cybersecurity</p>
+                  <h4 class="domain-detail__title" data-edit="solutions.domains[2].detail.title">Defense in <em>depth</em>.</h4>
+                  <p class="domain-detail__lede" data-edit="solutions.domains[2].detail.lede">Zero-trust by default. Your perimeter is identity, your traffic is encrypted, your secrets are short-lived.</p>
+                  <ul class="domain-detail__list">
+                    <li data-edit="solutions.domains[2].detail.list[0]">Threat modeling &amp; tabletop exercises</li>
+                    <li data-edit="solutions.domains[2].detail.list[1]">SBOM, signed builds, supply-chain hygiene</li>
+                    <li data-edit="solutions.domains[2].detail.list[2]">Secrets management with rotation</li>
+                    <li data-edit="solutions.domains[2].detail.list[3]">Continuous compliance: SOC 2, HIPAA, ISO</li>
+                  </ul>
+                  <div class="domain-detail__metrics">
+                    <div><strong data-edit="solutions.domains[2].detail.metrics[0].strong">0</strong><span data-edit="solutions.domains[2].detail.metrics[0].label">critical CVEs in prod</span></div>
+                    <div><strong data-edit="solutions.domains[2].detail.metrics[1].strong">&lt;15 min</strong><span data-edit="solutions.domains[2].detail.metrics[1].label">secret rotation</span></div>
+                    <div><strong data-edit="solutions.domains[2].detail.metrics[2].strong">SOC 2</strong><span data-edit="solutions.domains[2].detail.metrics[2].label">type II ready</span></div>
+                  </div>
+                </div>
+                <div class="domain-detail__viz">
+                  <canvas data-domain-canvas="cybersec"></canvas>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="domain-card" data-domain="web" tabindex="0" aria-label="Open Web Platforms">
+            <div class="domain-card__inner">
+              <div class="domain-card__icon">
+                <svg viewBox="0 0 64 64" aria-hidden="true">
+                  <rect x="8" y="12" width="48" height="40" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+                  <line x1="8" y1="22" x2="56" y2="22" stroke="currentColor" stroke-width="2"/>
+                  <circle cx="14" cy="17" r="1.4" fill="currentColor"/>
+                  <circle cx="19" cy="17" r="1.4" fill="currentColor"/>
+                  <circle cx="24" cy="17" r="1.4" fill="currentColor"/>
+                </svg>
+              </div>
+              <h3 class="domain-card__title" data-edit="solutions.domains[3].title">Web Platforms</h3>
+              <p class="domain-card__desc" data-edit="solutions.domains[3].desc">Edge-first architectures with type-safe end-to-end stacks.</p>
+              <span class="domain-card__cta">Open <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </div>
+            <div class="domain-card__detail">
+              <button class="domain-card__close" aria-label="Close">
+                <svg viewBox="0 0 24 24" width="22" height="22"><path d="M6 6l12 12M18 6l-12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </button>
+              <div class="domain-detail__layout">
+                <div class="domain-detail__copy">
+                  <p class="domain-detail__eyebrow" data-edit="solutions.domains[3].detail.eyebrow">Web Platforms</p>
+                  <h4 class="domain-detail__title" data-edit="solutions.domains[3].detail.title">Web that <em>moves</em>.</h4>
+                  <p class="domain-detail__lede" data-edit="solutions.domains[3].detail.lede">Performance budgets enforced in CI. Accessibility audits per release. The kind of frontend that hits 100 across the board.</p>
+                  <ul class="domain-detail__list">
+                    <li data-edit="solutions.domains[3].detail.list[0]">React, SvelteKit, Astro — fit-for-purpose</li>
+                    <li data-edit="solutions.domains[3].detail.list[1]">Edge runtime &amp; streaming SSR</li>
+                    <li data-edit="solutions.domains[3].detail.list[2]">Design systems with Storybook + Chromatic</li>
+                    <li data-edit="solutions.domains[3].detail.list[3]">WCAG 2.2 AA, Lighthouse 95+ minimum</li>
+                  </ul>
+                  <div class="domain-detail__metrics">
+                    <div><strong data-edit="solutions.domains[3].detail.metrics[0].strong">97</strong><span data-edit="solutions.domains[3].detail.metrics[0].label">Lighthouse avg</span></div>
+                    <div><strong data-edit="solutions.domains[3].detail.metrics[1].strong">&lt;1.2s</strong><span data-edit="solutions.domains[3].detail.metrics[1].label">LCP at p75</span></div>
+                    <div><strong data-edit="solutions.domains[3].detail.metrics[2].strong">0 a11y</strong><span data-edit="solutions.domains[3].detail.metrics[2].label">blockers shipped</span></div>
+                  </div>
+                </div>
+                <div class="domain-detail__viz">
+                  <canvas data-domain-canvas="web"></canvas>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="domain-card" data-domain="data" tabindex="0" aria-label="Open Data Analytics">
+            <div class="domain-card__inner">
+              <div class="domain-card__icon">
+                <svg viewBox="0 0 64 64" aria-hidden="true">
+                  <line x1="10" y1="54" x2="54" y2="54" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <rect x="14" y="36" width="6" height="18" fill="currentColor" opacity=".7"/>
+                  <rect x="26" y="22" width="6" height="32" fill="currentColor" opacity=".85"/>
+                  <rect x="38" y="28" width="6" height="26" fill="currentColor"/>
+                </svg>
+              </div>
+              <h3 class="domain-card__title" data-edit="solutions.domains[4].title">Data Analytics</h3>
+              <p class="domain-card__desc" data-edit="solutions.domains[4].desc">Pipelines, warehouses, and dashboards that decision-makers actually read.</p>
+              <span class="domain-card__cta">Open <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </div>
+            <div class="domain-card__detail">
+              <button class="domain-card__close" aria-label="Close">
+                <svg viewBox="0 0 24 24" width="22" height="22"><path d="M6 6l12 12M18 6l-12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </button>
+              <div class="domain-detail__layout">
+                <div class="domain-detail__copy">
+                  <p class="domain-detail__eyebrow" data-edit="solutions.domains[4].detail.eyebrow">Data Analytics</p>
+                  <h4 class="domain-detail__title" data-edit="solutions.domains[4].detail.title">Numbers that <em>narrate</em>.</h4>
+                  <p class="domain-detail__lede" data-edit="solutions.domains[4].detail.lede">From event capture to executive dashboards. We treat the data layer as a product, not a side-effect.</p>
+                  <ul class="domain-detail__list">
+                    <li data-edit="solutions.domains[4].detail.list[0]">dbt, Airflow, streaming ELT</li>
+                    <li data-edit="solutions.domains[4].detail.list[1]">Warehouse modeling &amp; semantic layer</li>
+                    <li data-edit="solutions.domains[4].detail.list[2]">Self-serve analytics for non-engineers</li>
+                    <li data-edit="solutions.domains[4].detail.list[3]">Forecasting &amp; anomaly detection</li>
+                  </ul>
+                  <div class="domain-detail__metrics">
+                    <div><strong data-edit="solutions.domains[4].detail.metrics[0].strong">&lt;30s</strong><span data-edit="solutions.domains[4].detail.metrics[0].label">data freshness</span></div>
+                    <div><strong data-edit="solutions.domains[4].detail.metrics[1].strong">500B+</strong><span data-edit="solutions.domains[4].detail.metrics[1].label">events / month</span></div>
+                    <div><strong data-edit="solutions.domains[4].detail.metrics[2].strong">92%</strong><span data-edit="solutions.domains[4].detail.metrics[2].label">self-serve queries</span></div>
+                  </div>
+                </div>
+                <div class="domain-detail__viz">
+                  <canvas data-domain-canvas="data"></canvas>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="domain-card" data-domain="design" tabindex="0" aria-label="Open Product Design">
+            <div class="domain-card__inner">
+              <div class="domain-card__icon">
+                <svg viewBox="0 0 64 64" aria-hidden="true">
+                  <path d="M14 50 L40 24 L46 30 L20 56 H14 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                  <path d="M40 24 L46 18 L52 24 L46 30" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <h3 class="domain-card__title" data-edit="solutions.domains[5].title">Product Design</h3>
+              <p class="domain-card__desc" data-edit="solutions.domains[5].desc">Research-led product design that ships with the engineering team, not after.</p>
+              <span class="domain-card__cta">Open <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </div>
+            <div class="domain-card__detail">
+              <button class="domain-card__close" aria-label="Close">
+                <svg viewBox="0 0 24 24" width="22" height="22"><path d="M6 6l12 12M18 6l-12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </button>
+              <div class="domain-detail__layout">
+                <div class="domain-detail__copy">
+                  <p class="domain-detail__eyebrow" data-edit="solutions.domains[5].detail.eyebrow">Product Design</p>
+                  <h4 class="domain-detail__title" data-edit="solutions.domains[5].detail.title">Designed to be <em>used</em>.</h4>
+                  <p class="domain-detail__lede" data-edit="solutions.domains[5].detail.lede">Discovery sprints, prototypes that are real code, and design systems that are a single source of truth.</p>
+                  <ul class="domain-detail__list">
+                    <li data-edit="solutions.domains[5].detail.list[0]">Discovery, JTBD, qualitative research</li>
+                    <li data-edit="solutions.domains[5].detail.list[1]">Figma → tokens → production parity</li>
+                    <li data-edit="solutions.domains[5].detail.list[2]">Motion language and interaction models</li>
+                    <li data-edit="solutions.domains[5].detail.list[3]">Brand systems engineered for scale</li>
+                  </ul>
+                  <div class="domain-detail__metrics">
+                    <div><strong data-edit="solutions.domains[5].detail.metrics[0].strong">+38%</strong><span data-edit="solutions.domains[5].detail.metrics[0].label">activation lift</span></div>
+                    <div><strong data-edit="solutions.domains[5].detail.metrics[1].strong">0 → 1</strong><span data-edit="solutions.domains[5].detail.metrics[1].label">brand systems</span></div>
+                    <div><strong data-edit="solutions.domains[5].detail.metrics[2].strong">5×</strong><span data-edit="solutions.domains[5].detail.metrics[2].label">design velocity</span></div>
+                  </div>
+                </div>
+                <div class="domain-detail__viz">
+                  <canvas data-domain-canvas="design"></canvas>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- =================================================== OPERATIONS =================================================== -->
+      <section id="operations" class="section section--operations" data-section-name="operations">
+        <header class="ops__head">
+          <p class="section__eyebrow" data-edit="operations.eyebrow">02 · Operations</p>
+          <h2 class="section__title" data-edit="operations.title">Always-on. <em>Always watching.</em></h2>
+          <p class="section__lede" data-edit="operations.lede">Three command centers behind every Zynape platform — engineered to monitor, defend, and scale before you ever notice a wobble.</p>
+        </header>
+
+        <div class="ops__grid">
+
+          <!-- ========== CLOUD DATA CENTER ========== -->
+          <article class="ops-panel ops-panel--cloud" data-ops="cloud">
+            <div class="ops-panel__viz">
+              <svg class="dc-viz" viewBox="0 0 360 220" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <defs>
+                  <linearGradient id="dcRack" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0" stop-color="#16163a" />
+                    <stop offset="1" stop-color="#0a0a24" />
+                  </linearGradient>
+                  <linearGradient id="dcFlow" x1="0" x2="1">
+                    <stop offset="0" stop-color="#00f5d4" stop-opacity="0" />
+                    <stop offset="0.5" stop-color="#00f5d4" stop-opacity="1" />
+                    <stop offset="1" stop-color="#7b2ff7" stop-opacity="0" />
+                  </linearGradient>
+                  <filter id="dcGlow"><feGaussianBlur stdDeviation="2.4" /></filter>
+                </defs>
+
+                <!-- Floor grid -->
+                <g class="dc-grid" stroke="rgba(0,245,212,0.08)">
+                  <line x1="0" y1="180" x2="360" y2="180" />
+                  <line x1="0" y1="195" x2="360" y2="195" />
+                  <line x1="0" y1="210" x2="360" y2="210" />
+                </g>
+
+                <!-- Server racks (8 columns) -->
+                <g class="dc-racks">
+                  <g class="dc-rack" transform="translate(20,40)">
+                    <rect width="34" height="140" rx="3" fill="url(#dcRack)" stroke="rgba(0,245,212,0.35)" />
+                    <g class="dc-rack-leds">
+                      <rect x="6"  y="14" width="22" height="4" rx="1" />
+                      <rect x="6"  y="26" width="22" height="4" rx="1" />
+                      <rect x="6"  y="38" width="22" height="4" rx="1" />
+                      <rect x="6"  y="50" width="22" height="4" rx="1" />
+                      <rect x="6"  y="62" width="22" height="4" rx="1" />
+                      <rect x="6"  y="74" width="22" height="4" rx="1" />
+                      <rect x="6"  y="86" width="22" height="4" rx="1" />
+                      <rect x="6"  y="98" width="22" height="4" rx="1" />
+                      <rect x="6"  y="110" width="22" height="4" rx="1" />
+                      <rect x="6"  y="122" width="22" height="4" rx="1" />
+                    </g>
+                  </g>
+                  <g class="dc-rack" transform="translate(64,40)">
+                    <rect width="34" height="140" rx="3" fill="url(#dcRack)" stroke="rgba(0,245,212,0.35)" />
+                    <g class="dc-rack-leds">
+                      <rect x="6" y="14" width="22" height="4" rx="1" />
+                      <rect x="6" y="26" width="22" height="4" rx="1" />
+                      <rect x="6" y="38" width="22" height="4" rx="1" />
+                      <rect x="6" y="50" width="22" height="4" rx="1" />
+                      <rect x="6" y="62" width="22" height="4" rx="1" />
+                      <rect x="6" y="74" width="22" height="4" rx="1" />
+                      <rect x="6" y="86" width="22" height="4" rx="1" />
+                      <rect x="6" y="98" width="22" height="4" rx="1" />
+                      <rect x="6" y="110" width="22" height="4" rx="1" />
+                      <rect x="6" y="122" width="22" height="4" rx="1" />
+                    </g>
+                  </g>
+                  <g class="dc-rack" transform="translate(108,40)">
+                    <rect width="34" height="140" rx="3" fill="url(#dcRack)" stroke="rgba(0,245,212,0.35)" />
+                    <g class="dc-rack-leds">
+                      <rect x="6" y="14" width="22" height="4" rx="1" />
+                      <rect x="6" y="26" width="22" height="4" rx="1" />
+                      <rect x="6" y="38" width="22" height="4" rx="1" />
+                      <rect x="6" y="50" width="22" height="4" rx="1" />
+                      <rect x="6" y="62" width="22" height="4" rx="1" />
+                      <rect x="6" y="74" width="22" height="4" rx="1" />
+                      <rect x="6" y="86" width="22" height="4" rx="1" />
+                      <rect x="6" y="98" width="22" height="4" rx="1" />
+                      <rect x="6" y="110" width="22" height="4" rx="1" />
+                      <rect x="6" y="122" width="22" height="4" rx="1" />
+                    </g>
+                  </g>
+                  <g class="dc-rack" transform="translate(218,40)">
+                    <rect width="34" height="140" rx="3" fill="url(#dcRack)" stroke="rgba(0,245,212,0.35)" />
+                    <g class="dc-rack-leds">
+                      <rect x="6" y="14" width="22" height="4" rx="1" />
+                      <rect x="6" y="26" width="22" height="4" rx="1" />
+                      <rect x="6" y="38" width="22" height="4" rx="1" />
+                      <rect x="6" y="50" width="22" height="4" rx="1" />
+                      <rect x="6" y="62" width="22" height="4" rx="1" />
+                      <rect x="6" y="74" width="22" height="4" rx="1" />
+                      <rect x="6" y="86" width="22" height="4" rx="1" />
+                      <rect x="6" y="98" width="22" height="4" rx="1" />
+                      <rect x="6" y="110" width="22" height="4" rx="1" />
+                      <rect x="6" y="122" width="22" height="4" rx="1" />
+                    </g>
+                  </g>
+                  <g class="dc-rack" transform="translate(262,40)">
+                    <rect width="34" height="140" rx="3" fill="url(#dcRack)" stroke="rgba(0,245,212,0.35)" />
+                    <g class="dc-rack-leds">
+                      <rect x="6" y="14" width="22" height="4" rx="1" />
+                      <rect x="6" y="26" width="22" height="4" rx="1" />
+                      <rect x="6" y="38" width="22" height="4" rx="1" />
+                      <rect x="6" y="50" width="22" height="4" rx="1" />
+                      <rect x="6" y="62" width="22" height="4" rx="1" />
+                      <rect x="6" y="74" width="22" height="4" rx="1" />
+                      <rect x="6" y="86" width="22" height="4" rx="1" />
+                      <rect x="6" y="98" width="22" height="4" rx="1" />
+                      <rect x="6" y="110" width="22" height="4" rx="1" />
+                      <rect x="6" y="122" width="22" height="4" rx="1" />
+                    </g>
+                  </g>
+                  <g class="dc-rack" transform="translate(306,40)">
+                    <rect width="34" height="140" rx="3" fill="url(#dcRack)" stroke="rgba(0,245,212,0.35)" />
+                    <g class="dc-rack-leds">
+                      <rect x="6" y="14" width="22" height="4" rx="1" />
+                      <rect x="6" y="26" width="22" height="4" rx="1" />
+                      <rect x="6" y="38" width="22" height="4" rx="1" />
+                      <rect x="6" y="50" width="22" height="4" rx="1" />
+                      <rect x="6" y="62" width="22" height="4" rx="1" />
+                      <rect x="6" y="74" width="22" height="4" rx="1" />
+                      <rect x="6" y="86" width="22" height="4" rx="1" />
+                      <rect x="6" y="98" width="22" height="4" rx="1" />
+                      <rect x="6" y="110" width="22" height="4" rx="1" />
+                      <rect x="6" y="122" width="22" height="4" rx="1" />
+                    </g>
+                  </g>
+                </g>
+
+                <!-- Cooling aisle highlight between rack groups -->
+                <rect class="dc-aisle" x="152" y="48" width="58" height="124" rx="4" fill="rgba(0,245,212,0.04)" stroke="rgba(0,245,212,0.18)" />
+
+                <!-- Data flow particles along the aisle -->
+                <g class="dc-flow">
+                  <circle r="2.6" fill="#00f5d4" filter="url(#dcGlow)"></circle>
+                  <circle r="2"   fill="#7b2ff7" filter="url(#dcGlow)"></circle>
+                  <circle r="2.4" fill="#00d4ff" filter="url(#dcGlow)"></circle>
+                  <circle r="1.8" fill="#ffe066" filter="url(#dcGlow)"></circle>
+                </g>
+
+                <!-- Top conduit / cable bus -->
+                <path class="dc-conduit" d="M0 28 L360 28" stroke="url(#dcFlow)" stroke-width="2" />
+                <circle class="dc-conduit-pulse" r="3" fill="#00f5d4" />
+              </svg>
+            </div>
+            <div class="ops-panel__copy">
+              <div class="ops-tag"><span class="ops-tag__dot"></span><span data-edit="operations.panels[0].tag">Cloud · Data Center</span></div>
+              <h3 class="ops-panel__title" data-edit="operations.panels[0].title">Multi-region <em>compute fabric</em>.</h3>
+              <p class="ops-panel__lede" data-edit="operations.panels[0].lede">Active-active deployments across regions, hot failover, infra-as-code from line one — capacity scales before your traffic does.</p>
+              <ul class="ops-panel__list">
+                <li data-edit="operations.panels[0].list[0]">Multi-cloud + on-prem hybrid topology</li>
+                <li data-edit="operations.panels[0].list[1]">GitOps continuous delivery, blue/green</li>
+                <li data-edit="operations.panels[0].list[2]">Sub-minute auto-scaling on demand spikes</li>
+                <li data-edit="operations.panels[0].list[3]">Carbon-aware workload scheduling</li>
+              </ul>
+              <div class="ops-panel__metrics">
+                <div><strong data-edit="operations.panels[0].metrics[0].strong">99.999%</strong><span data-edit="operations.panels[0].metrics[0].label">uptime SLO</span></div>
+                <div><strong data-edit="operations.panels[0].metrics[1].strong">&lt; 30s</strong><span data-edit="operations.panels[0].metrics[1].label">region failover</span></div>
+                <div><strong data-edit="operations.panels[0].metrics[2].strong">6 PoPs</strong><span data-edit="operations.panels[0].metrics[2].label">active-active</span></div>
+              </div>
+            </div>
+          </article>
+
+          <!-- ========== SOC ========== -->
+          <article class="ops-panel ops-panel--soc" data-ops="soc">
+            <div class="ops-panel__viz">
+              <svg class="soc-viz" viewBox="0 0 360 240" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+                <defs>
+                  <radialGradient id="socRadar" cx="50%" cy="50%" r="50%">
+                    <stop offset="0" stop-color="rgba(0,245,212,0.18)" />
+                    <stop offset="1" stop-color="rgba(0,245,212,0)" />
+                  </radialGradient>
+                  <linearGradient id="socSweep" x1="0" x2="1">
+                    <stop offset="0" stop-color="rgba(0,245,212,0.95)" />
+                    <stop offset="1" stop-color="rgba(0,245,212,0)" />
+                  </linearGradient>
+                  <filter id="socGlow"><feGaussianBlur stdDeviation="2.2" /></filter>
+                </defs>
+
+                <g transform="translate(180 120)">
+                  <circle r="100" fill="url(#socRadar)" />
+                  <circle class="soc-ring" r="100" fill="none" stroke="rgba(0,245,212,0.45)" stroke-width="1" />
+                  <circle class="soc-ring" r="72"  fill="none" stroke="rgba(0,245,212,0.25)" stroke-width="1" />
+                  <circle class="soc-ring" r="44"  fill="none" stroke="rgba(0,245,212,0.18)" stroke-width="1" />
+                  <circle class="soc-ring" r="16"  fill="none" stroke="rgba(0,245,212,0.4)"  stroke-width="1" />
+
+                  <!-- Crosshair -->
+                  <line x1="-100" x2="100" y1="0"    y2="0"    stroke="rgba(0,245,212,0.16)" />
+                  <line x1="0"    x2="0"   y1="-100" y2="100"  stroke="rgba(0,245,212,0.16)" />
+
+                  <!-- Sweep arm -->
+                  <g class="soc-sweep">
+                    <path d="M0 0 L100 0 A100 100 0 0 0 70.7 -70.7 Z" fill="url(#socSweep)" opacity="0.55" />
+                    <line x1="0" y1="0" x2="100" y2="0" stroke="#00f5d4" stroke-width="1.5" />
+                  </g>
+
+                  <!-- Threat blips -->
+                  <g class="soc-blips" filter="url(#socGlow)">
+                    <circle class="soc-blip" cx="-58" cy="-22" r="3.2" fill="#ff6b6b" />
+                    <circle class="soc-blip" cx="36"  cy="48"  r="2.8" fill="#ffe066" />
+                    <circle class="soc-blip" cx="74"  cy="-40" r="3"   fill="#ff6b6b" />
+                    <circle class="soc-blip" cx="-30" cy="68"  r="2.4" fill="#00f5d4" />
+                    <circle class="soc-blip" cx="-78" cy="40"  r="2.6" fill="#7b2ff7" />
+                    <circle class="soc-blip" cx="20"  cy="-72" r="2.2" fill="#00f5d4" />
+                  </g>
+
+                  <!-- Center pulse -->
+                  <circle class="soc-pulse" r="6" fill="#00f5d4" />
+                </g>
+
+                <!-- Side telemetry bars -->
+                <g class="soc-bars" transform="translate(20 30)">
+                  <rect class="soc-bar" x="0"  y="0" width="36" height="6" rx="1" />
+                  <rect class="soc-bar" x="0" y="14" width="36" height="6" rx="1" />
+                  <rect class="soc-bar" x="0" y="28" width="36" height="6" rx="1" />
+                  <rect class="soc-bar" x="0" y="42" width="36" height="6" rx="1" />
+                </g>
+                <g class="soc-bars" transform="translate(304 30)">
+                  <rect class="soc-bar" x="0" y="0"  width="36" height="6" rx="1" />
+                  <rect class="soc-bar" x="0" y="14" width="36" height="6" rx="1" />
+                  <rect class="soc-bar" x="0" y="28" width="36" height="6" rx="1" />
+                  <rect class="soc-bar" x="0" y="42" width="36" height="6" rx="1" />
+                </g>
+              </svg>
+            </div>
+            <div class="ops-panel__copy">
+              <div class="ops-tag ops-tag--coral"><span class="ops-tag__dot"></span><span data-edit="operations.panels[1].tag">SOC · Security Ops</span></div>
+              <h3 class="ops-panel__title" data-edit="operations.panels[1].title">Threats <em>caught before</em> they breach.</h3>
+              <p class="ops-panel__lede" data-edit="operations.panels[1].lede">24/7 detection, response, and forensic trail. We harden the perimeter, watch the inside, and rehearse the worst day.</p>
+              <ul class="ops-panel__list">
+                <li data-edit="operations.panels[1].list[0]">SIEM + SOAR with custom detections</li>
+                <li data-edit="operations.panels[1].list[1]">Mean-time-to-respond under fifteen minutes</li>
+                <li data-edit="operations.panels[1].list[2]">Red-team exercises &amp; tabletop drills</li>
+                <li data-edit="operations.panels[1].list[3]">Compliance: SOC 2, ISO 27001, HIPAA</li>
+              </ul>
+              <div class="ops-panel__metrics">
+                <div><strong data-edit="operations.panels[1].metrics[0].strong">&lt; 15m</strong><span data-edit="operations.panels[1].metrics[0].label">MTTR</span></div>
+                <div><strong data-edit="operations.panels[1].metrics[1].strong">24/7</strong><span data-edit="operations.panels[1].metrics[1].label">threat watch</span></div>
+                <div><strong data-edit="operations.panels[1].metrics[2].strong">0</strong><span data-edit="operations.panels[1].metrics[2].label">breaches '23–'25</span></div>
+              </div>
+            </div>
+          </article>
+
+          <!-- ========== NOC ========== -->
+          <article class="ops-panel ops-panel--noc" data-ops="noc">
+            <div class="ops-panel__viz">
+              <svg class="noc-viz" viewBox="0 0 360 240" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+                <defs>
+                  <linearGradient id="nocLink" x1="0" x2="1">
+                    <stop offset="0" stop-color="rgba(0,245,212,0.65)" />
+                    <stop offset="1" stop-color="rgba(123,47,247,0.65)" />
+                  </linearGradient>
+                  <filter id="nocGlow"><feGaussianBlur stdDeviation="2.4" /></filter>
+                </defs>
+
+                <!-- Network topology -->
+                <g class="noc-edges" stroke="url(#nocLink)" stroke-width="1.2" fill="none">
+                  <path class="noc-edge" d="M180 120 L60 60" />
+                  <path class="noc-edge" d="M180 120 L300 60" />
+                  <path class="noc-edge" d="M180 120 L60 200" />
+                  <path class="noc-edge" d="M180 120 L300 200" />
+                  <path class="noc-edge" d="M180 120 L100 130" />
+                  <path class="noc-edge" d="M180 120 L260 130" />
+                  <path class="noc-edge" d="M60 60 L100 130" />
+                  <path class="noc-edge" d="M300 60 L260 130" />
+                  <path class="noc-edge" d="M60 200 L100 130" />
+                  <path class="noc-edge" d="M300 200 L260 130" />
+                </g>
+
+                <!-- Edge packets -->
+                <g class="noc-packets" filter="url(#nocGlow)">
+                  <circle class="noc-packet" r="3" fill="#00f5d4" />
+                  <circle class="noc-packet" r="3" fill="#7b2ff7" />
+                  <circle class="noc-packet" r="2.5" fill="#00d4ff" />
+                  <circle class="noc-packet" r="2.5" fill="#ffe066" />
+                </g>
+
+                <!-- Nodes -->
+                <g class="noc-nodes" filter="url(#nocGlow)">
+                  <g class="noc-node" transform="translate(180 120)">
+                    <circle r="14" fill="rgba(0,245,212,0.18)" stroke="#00f5d4" stroke-width="1.4" />
+                    <circle r="6" fill="#00f5d4" />
+                  </g>
+                  <g class="noc-node" transform="translate(60 60)"><circle r="8" fill="rgba(0,245,212,0.22)" stroke="#00f5d4" /></g>
+                  <g class="noc-node" transform="translate(300 60)"><circle r="8" fill="rgba(123,47,247,0.22)" stroke="#7b2ff7" /></g>
+                  <g class="noc-node" transform="translate(60 200)"><circle r="8" fill="rgba(0,212,255,0.22)" stroke="#00d4ff" /></g>
+                  <g class="noc-node" transform="translate(300 200)"><circle r="8" fill="rgba(255,224,102,0.22)" stroke="#ffe066" /></g>
+                  <g class="noc-node" transform="translate(100 130)"><circle r="6" fill="rgba(0,245,212,0.22)" stroke="#00f5d4" /></g>
+                  <g class="noc-node" transform="translate(260 130)"><circle r="6" fill="rgba(123,47,247,0.22)" stroke="#7b2ff7" /></g>
+                </g>
+
+                <!-- Latency ticker bars (bottom) -->
+                <g class="noc-ticker" transform="translate(20 220)">
+                  <rect class="noc-tick" x="0"   y="0" width="3" height="10" />
+                  <rect class="noc-tick" x="8"   y="0" width="3" height="10" />
+                  <rect class="noc-tick" x="16"  y="0" width="3" height="10" />
+                  <rect class="noc-tick" x="24"  y="0" width="3" height="10" />
+                  <rect class="noc-tick" x="32"  y="0" width="3" height="10" />
+                  <rect class="noc-tick" x="40"  y="0" width="3" height="10" />
+                  <rect class="noc-tick" x="48"  y="0" width="3" height="10" />
+                  <rect class="noc-tick" x="56"  y="0" width="3" height="10" />
+                  <rect class="noc-tick" x="64"  y="0" width="3" height="10" />
+                  <rect class="noc-tick" x="72"  y="0" width="3" height="10" />
+                  <rect class="noc-tick" x="80"  y="0" width="3" height="10" />
+                  <rect class="noc-tick" x="88"  y="0" width="3" height="10" />
+                  <rect class="noc-tick" x="96"  y="0" width="3" height="10" />
+                  <rect class="noc-tick" x="104" y="0" width="3" height="10" />
+                  <rect class="noc-tick" x="112" y="0" width="3" height="10" />
+                  <rect class="noc-tick" x="120" y="0" width="3" height="10" />
+                  <rect class="noc-tick" x="128" y="0" width="3" height="10" />
+                  <rect class="noc-tick" x="136" y="0" width="3" height="10" />
+                </g>
+              </svg>
+            </div>
+            <div class="ops-panel__copy">
+              <div class="ops-tag ops-tag--purple"><span class="ops-tag__dot"></span><span data-edit="operations.panels[2].tag">NOC · Network Ops</span></div>
+              <h3 class="ops-panel__title" data-edit="operations.panels[2].title">Routes that <em>self-heal</em>.</h3>
+              <p class="ops-panel__lede" data-edit="operations.panels[2].lede">Edge-to-edge visibility, BGP route shaping, and predictive failure detection — your network reroutes before a packet drops.</p>
+              <ul class="ops-panel__list">
+                <li data-edit="operations.panels[2].list[0]">Real-time topology &amp; latency heatmap</li>
+                <li data-edit="operations.panels[2].list[1]">Anomaly detection on telemetry streams</li>
+                <li data-edit="operations.panels[2].list[2]">Zero-touch provisioning at every PoP</li>
+                <li data-edit="operations.panels[2].list[3]">Predictive capacity &amp; congestion forecasts</li>
+              </ul>
+              <div class="ops-panel__metrics">
+                <div><strong data-edit="operations.panels[2].metrics[0].strong">&lt; 8 ms</strong><span data-edit="operations.panels[2].metrics[0].label">p50 hop</span></div>
+                <div><strong data-edit="operations.panels[2].metrics[1].strong">1.2 Tb/s</strong><span data-edit="operations.panels[2].metrics[1].label">peak throughput</span></div>
+                <div><strong data-edit="operations.panels[2].metrics[2].strong">180+</strong><span data-edit="operations.panels[2].metrics[2].label">PoPs reachable</span></div>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- =================================================== SERVICE =================================================== -->
+      <section id="service" class="section section--service" data-section-name="service">
+        <div class="service__pin">
+          <header class="service__head">
+            <p class="section__eyebrow" data-edit="service.eyebrow">03 · Service</p>
+            <h2 class="section__title" data-edit="service.title">How we <em>work</em>.</h2>
+            <p class="section__lede" data-edit="service.lede">Five movements. One arc. Each card flips to reveal what we actually do inside — hover any step to see.</p>
+            <span class="service__active-step" id="svc-active-step" aria-live="polite"></span>
+          </header>
+
+          <!-- Step progress indicator -->
+          <div class="service__progress" aria-label="Service steps progress">
+            <div class="service__progress-bar">
+              <div class="service__progress-fill" id="svc-progress-fill"></div>
+            </div>
+            <div class="service__progress-dots" role="tablist">
+              <button class="svc-dot is-active" data-svc-dot="0" role="tab" aria-label="Step 1: Discover">
+                <span class="svc-dot__marker"></span>
+                <span class="svc-dot__label">01</span>
+              </button>
+              <button class="svc-dot" data-svc-dot="1" role="tab" aria-label="Step 2: Design">
+                <span class="svc-dot__marker"></span>
+                <span class="svc-dot__label">02</span>
+              </button>
+              <button class="svc-dot" data-svc-dot="2" role="tab" aria-label="Step 3: Build">
+                <span class="svc-dot__marker"></span>
+                <span class="svc-dot__label">03</span>
+              </button>
+              <button class="svc-dot" data-svc-dot="3" role="tab" aria-label="Step 4: Validate">
+                <span class="svc-dot__marker"></span>
+                <span class="svc-dot__label">04</span>
+              </button>
+              <button class="svc-dot" data-svc-dot="4" role="tab" aria-label="Step 5: Scale">
+                <span class="svc-dot__marker"></span>
+                <span class="svc-dot__label">05</span>
+              </button>
+            </div>
+          </div>
+
+          <svg class="service-thread" viewBox="0 0 5000 200" preserveAspectRatio="none" aria-hidden="true">
+            <path id="thread-path" d="M0,100 C500,30 1000,170 1500,100 C2000,30 2500,170 3000,100 C3500,30 4000,170 4500,100 L5000,100" fill="none" stroke="url(#threadGrad)" stroke-width="2" />
+            <defs>
+              <linearGradient id="threadGrad" x1="0" x2="1">
+                <stop offset="0" stop-color="#00f5d4"/>
+                <stop offset="1" stop-color="#7b2ff7"/>
+              </linearGradient>
+            </defs>
+          </svg>
+
+          <div class="service-track">
+            <article class="service-item" data-step="01">
+              <div class="service-card">
+                <div class="service-card__inner">
+                  <div class="service-card__face service-card__front">
+                    <div class="service-icon">
+                      <svg viewBox="0 0 64 64" aria-hidden="true">
+                        <circle cx="32" cy="32" r="20" fill="none" stroke="currentColor" stroke-width="2" pathLength="100" class="draw-path"/>
+                        <circle cx="32" cy="32" r="6" fill="none" stroke="currentColor" stroke-width="2" pathLength="100" class="draw-path"/>
+                      </svg>
+                    </div>
+                    <p class="service-step" data-edit="service.steps[0].step">Step 01</p>
+                    <h3 class="service-title" data-edit="service.steps[0].title">Discover</h3>
+                    <p class="service-text" data-edit="service.steps[0].text">We embed with stakeholders, map jobs-to-be-done, and identify the hottest constraints to break first.</p>
+                    <span class="service-line"></span>
+                  </div>
+                  <div class="service-card__face service-card__back">
+                    <h4 data-edit="service.steps[0].back.heading">Inside Discover</h4>
+                    <ul>
+                      <li data-edit="service.steps[0].back.items[0]">2-week embedded sprint</li>
+                      <li data-edit="service.steps[0].back.items[1]">User &amp; stakeholder interviews</li>
+                      <li data-edit="service.steps[0].back.items[2]">Constraint &amp; risk register</li>
+                      <li data-edit="service.steps[0].back.items[3]">Solution shape sketch</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="service-item" data-step="02">
+              <div class="service-card">
+                <div class="service-card__inner">
+                  <div class="service-card__face service-card__front">
+                    <div class="service-icon">
+                      <svg viewBox="0 0 64 64" aria-hidden="true">
+                        <rect x="10" y="14" width="44" height="36" rx="3" fill="none" stroke="currentColor" stroke-width="2" pathLength="100" class="draw-path"/>
+                        <line x1="18" y1="26" x2="46" y2="26" stroke="currentColor" stroke-width="2" pathLength="100" class="draw-path"/>
+                        <line x1="18" y1="34" x2="38" y2="34" stroke="currentColor" stroke-width="2" pathLength="100" class="draw-path"/>
+                        <line x1="18" y1="42" x2="42" y2="42" stroke="currentColor" stroke-width="2" pathLength="100" class="draw-path"/>
+                      </svg>
+                    </div>
+                    <p class="service-step" data-edit="service.steps[1].step">Step 02</p>
+                    <h3 class="service-title" data-edit="service.steps[1].title">Design</h3>
+                    <p class="service-text" data-edit="service.steps[1].text">High-fidelity prototypes that engineers can pull tokens from. No throwaway artifacts.</p>
+                    <span class="service-line"></span>
+                  </div>
+                  <div class="service-card__face service-card__back">
+                    <h4 data-edit="service.steps[1].back.heading">Inside Design</h4>
+                    <ul>
+                      <li data-edit="service.steps[1].back.items[0]">Figma libraries → code tokens</li>
+                      <li data-edit="service.steps[1].back.items[1]">Motion + interaction prototypes</li>
+                      <li data-edit="service.steps[1].back.items[2]">Accessibility annotations</li>
+                      <li data-edit="service.steps[1].back.items[3]">Engineering handoff docs</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="service-item" data-step="03">
+              <div class="service-card">
+                <div class="service-card__inner">
+                  <div class="service-card__face service-card__front">
+                    <div class="service-icon">
+                      <svg viewBox="0 0 64 64" aria-hidden="true">
+                        <path d="M14 32 L26 20 L38 32 L26 44 Z" fill="none" stroke="currentColor" stroke-width="2" pathLength="100" class="draw-path"/>
+                        <path d="M38 32 L50 20 L50 44 Z" fill="none" stroke="currentColor" stroke-width="2" pathLength="100" class="draw-path"/>
+                      </svg>
+                    </div>
+                    <p class="service-step" data-edit="service.steps[2].step">Step 03</p>
+                    <h3 class="service-title" data-edit="service.steps[2].title">Build</h3>
+                    <p class="service-text" data-edit="service.steps[2].text">Trunk-based, type-safe, observable. We ship in week one and keep shipping.</p>
+                    <span class="service-line"></span>
+                  </div>
+                  <div class="service-card__face service-card__back">
+                    <h4 data-edit="service.steps[2].back.heading">Inside Build</h4>
+                    <ul>
+                      <li data-edit="service.steps[2].back.items[0]">Trunk-based delivery</li>
+                      <li data-edit="service.steps[2].back.items[1]">Tests as documentation</li>
+                      <li data-edit="service.steps[2].back.items[2]">Observability from line one</li>
+                      <li data-edit="service.steps[2].back.items[3]">Daily preview deploys</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="service-item" data-step="04">
+              <div class="service-card">
+                <div class="service-card__inner">
+                  <div class="service-card__face service-card__front">
+                    <div class="service-icon">
+                      <svg viewBox="0 0 64 64" aria-hidden="true">
+                        <circle cx="32" cy="32" r="22" fill="none" stroke="currentColor" stroke-width="2" pathLength="100" class="draw-path"/>
+                        <path d="M22 32 L30 40 L44 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" pathLength="100" class="draw-path"/>
+                      </svg>
+                    </div>
+                    <p class="service-step" data-edit="service.steps[3].step">Step 04</p>
+                    <h3 class="service-title" data-edit="service.steps[3].title">Validate</h3>
+                    <p class="service-text" data-edit="service.steps[3].text">A/B tests, eval suites, real-user monitoring. We don't celebrate launches — we celebrate impact.</p>
+                    <span class="service-line"></span>
+                  </div>
+                  <div class="service-card__face service-card__back">
+                    <h4 data-edit="service.steps[3].back.heading">Inside Validate</h4>
+                    <ul>
+                      <li data-edit="service.steps[3].back.items[0]">A/B &amp; multi-arm experiments</li>
+                      <li data-edit="service.steps[3].back.items[1]">Eval harnesses for AI features</li>
+                      <li data-edit="service.steps[3].back.items[2]">RUM, error budgets, SLOs</li>
+                      <li data-edit="service.steps[3].back.items[3]">Weekly impact readouts</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="service-item" data-step="05">
+              <div class="service-card">
+                <div class="service-card__inner">
+                  <div class="service-card__face service-card__front">
+                    <div class="service-icon">
+                      <svg viewBox="0 0 64 64" aria-hidden="true">
+                        <path d="M16 16 L48 16 L48 48 L16 48 Z" fill="none" stroke="currentColor" stroke-width="2" pathLength="100" class="draw-path"/>
+                        <path d="M16 32 L48 32" stroke="currentColor" stroke-width="2" pathLength="100" class="draw-path"/>
+                        <path d="M32 16 L32 48" stroke="currentColor" stroke-width="2" pathLength="100" class="draw-path"/>
+                      </svg>
+                    </div>
+                    <p class="service-step" data-edit="service.steps[4].step">Step 05</p>
+                    <h3 class="service-title" data-edit="service.steps[4].title">Scale</h3>
+                    <p class="service-text" data-edit="service.steps[4].text">Hand-off, training, and runbooks. Or stay on retainer — we're flexible.</p>
+                    <span class="service-line"></span>
+                  </div>
+                  <div class="service-card__face service-card__back">
+                    <h4 data-edit="service.steps[4].back.heading">Inside Scale</h4>
+                    <ul>
+                      <li data-edit="service.steps[4].back.items[0]">Runbooks &amp; on-call training</li>
+                      <li data-edit="service.steps[4].back.items[1]">Long-term advisory retainers</li>
+                      <li data-edit="service.steps[4].back.items[2]">Team upskilling workshops</li>
+                      <li data-edit="service.steps[4].back.items[3]">Architecture decision records</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================== CONTACT =================================================== -->
+      <section id="contact" class="section section--contact" data-section-name="contact">
+        <div class="contact__inner">
+          <header class="contact__head">
+            <p class="section__eyebrow" data-edit="contact.eyebrow">04 · Contact</p>
+            <h2 class="contact__heading" data-edit="contact.heading">Start a <em>conversation</em>.</h2>
+            <p class="contact__lede" data-edit="contact.lede">Tell us what you're building. We answer every message inside one business day.</p>
+          </header>
+
+          <form class="contact__form" novalidate>
+            <div class="field-group">
+              <input type="text" id="name" name="name" required autocomplete="name" placeholder=" " />
+              <label for="name">Your name</label>
+              <span class="field-line"></span>
+            </div>
+            <div class="field-group">
+              <input type="email" id="email" name="email" required autocomplete="email" placeholder=" " />
+              <label for="email">Email address</label>
+              <span class="field-line"></span>
+            </div>
+            <div class="field-group">
+              <input type="text" id="company" name="company" autocomplete="organization" placeholder=" " />
+              <label for="company">Company <small>(optional)</small></label>
+              <span class="field-line"></span>
+            </div>
+            <div class="field-group field-group--full">
+              <textarea id="message" name="message" rows="4" required placeholder=" "></textarea>
+              <label for="message">What would you like to build?</label>
+              <span class="field-line"></span>
+            </div>
+            <button type="submit" class="contact__submit btn btn--primary">
+              <span class="btn-text" data-edit="contact.submit">Send message</span>
+              <svg class="btn-spinner" viewBox="0 0 50 50" aria-hidden="true">
+                <circle cx="25" cy="25" r="20" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-dasharray="80 200"/>
+              </svg>
+              <svg class="btn-check" viewBox="0 0 50 50" aria-hidden="true">
+                <path d="M14 26 L22 34 L38 16" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" pathLength="100"/>
+              </svg>
+            </button>
+            <p class="contact__success" role="status" aria-live="polite"></p>
+          </form>
+
+          <aside class="contact__aside">
+            <div>
+              <p class="aside__label" data-edit="contact.aside[0].label">Studio</p>
+              <p class="aside__value" data-edit="contact.aside[0].value">Remote-first · GMT+0 to GMT-8</p>
+            </div>
+            <div>
+              <p class="aside__label" data-edit="contact.aside[1].label">Response time</p>
+              <p class="aside__value" data-edit="contact.aside[1].value">&lt; 1 business day</p>
+            </div>
+            <div>
+              <p class="aside__label" data-edit="contact.aside[2].label">Direct line</p>
+              <p class="aside__value" data-edit="contact.aside[2].value"><a href="mailto:hello@zynape.studio">hello@zynape.studio</a></p>
+            </div>
+          </aside>
+        </div>
+
+        <footer class="footer">
+          <p class="footer__brand" data-edit="footer.brand">Zynape</p>
+          <p class="footer__line" data-edit="footer.line">Intelligence. Engineered. © 2026</p>
+        </footer>
+      </section>
+    </main>
+
+  </body>
+</html>

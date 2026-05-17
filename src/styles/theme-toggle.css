@@ -1,0 +1,131 @@
+/* ============================================================
+ * Theme toggle button — bottom-right corner
+ * ============================================================ */
+#theme-toggle {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: calc(var(--z-nav) + 5);
+
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(232, 232, 240, 0.22);
+  background: rgba(10, 10, 36, 0.72);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  color: var(--color-text-soft);
+  box-shadow:
+    0 0 0 1px rgba(0, 245, 212, 0.08),
+    0 8px 32px -8px rgba(0, 0, 0, 0.5),
+    0 0 24px -6px rgba(0, 245, 212, 0.12);
+
+  transition:
+    background      0.35s var(--ease-smooth),
+    border-color    0.35s var(--ease-smooth),
+    box-shadow      0.35s var(--ease-smooth),
+    transform       0.3s  var(--ease-bounce),
+    color           0.3s  var(--ease-smooth);
+
+  animation: toggleSlideIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: 1.2s;
+
+  /* Keep normal cursor */
+  cursor: pointer !important;
+}
+
+@keyframes toggleSlideIn {
+  from { opacity: 0; transform: translateY(16px) scale(0.8); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+
+#theme-toggle:hover {
+  background: rgba(0, 245, 212, 0.14);
+  border-color: rgba(0, 245, 212, 0.5);
+  box-shadow:
+    0 0 0 1px rgba(0, 245, 212, 0.18),
+    0 8px 32px -6px rgba(0, 0, 0, 0.5),
+    0 0 36px -4px rgba(0, 245, 212, 0.28);
+  color: var(--color-accent);
+  transform: scale(1.08);
+}
+
+#theme-toggle:active { transform: scale(0.95); }
+
+/* Track — stacks both icons, shows the relevant one */
+.theme-toggle__track {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  display: grid;
+  place-items: center;
+}
+
+.theme-icon {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  transition: opacity 0.3s var(--ease-smooth), transform 0.4s var(--ease-bounce);
+}
+
+/* Dark mode: show moon, hide sun */
+#theme-toggle[data-theme="dark"] .theme-icon--moon {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+#theme-toggle[data-theme="dark"] .theme-icon--sun {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.6);
+}
+
+/* Light mode: show sun, hide moon */
+#theme-toggle[data-theme="light"] .theme-icon--sun {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+#theme-toggle[data-theme="light"] .theme-icon--moon {
+  opacity: 0;
+  transform: rotate(90deg) scale(0.6);
+}
+
+/* ---- Light-theme button overrides ---- */
+body.theme-light #theme-toggle {
+  background: rgba(241, 241, 249, 0.84);
+  border-color: rgba(14, 14, 38, 0.16);
+  color: var(--color-text-soft);
+  box-shadow:
+    0 0 0 1px rgba(14, 14, 38, 0.06),
+    0 8px 32px -8px rgba(14, 14, 38, 0.16),
+    0 0 24px -6px rgba(0, 137, 122, 0.08);
+}
+body.theme-light #theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(0, 137, 122, 0.45);
+  box-shadow:
+    0 0 0 1px rgba(0, 137, 122, 0.14),
+    0 8px 32px -6px rgba(14, 14, 38, 0.16),
+    0 0 36px -4px rgba(0, 137, 122, 0.18);
+  color: var(--color-accent);
+}
+
+/* Nudge up when admin toolbar is present so they don't overlap */
+body.admin-mode #theme-toggle { bottom: 5.5rem; }
+
+/* Mobile */
+@media (max-width: 640px) {
+  #theme-toggle { bottom: 1rem; right: 1rem; width: 44px; height: 44px; }
+  body.admin-mode #theme-toggle { bottom: 7rem; }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  #theme-toggle { animation: none; }
+  .theme-icon   { transition: none; }
+}
+
+/* Transitions are now declared in theme-light.css on a
+   comprehensive element list that covers both pages. */

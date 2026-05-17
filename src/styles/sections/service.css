@@ -1,0 +1,384 @@
+/* ===== SERVICE — horizontal sticky scroll + progress indicator =====
+ *
+ * CSS `position:sticky` pins .service__pin in viewport while
+ * #service provides scroll height set by JS. GSAP translates
+ * .service-track horizontally. No GSAP pin:true = no Lenis conflict.
+ * ================================================================ */
+
+.section--service {
+  /* Height is set by JS: scrollDist + 100vh + EXTRA */
+  background: transparent;
+}
+
+/* ---- Sticky camera ---- */
+.service__pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  /* Right side fades to transparent so robot shows through */
+  background: linear-gradient(to right,
+    rgba(8, 8, 42, 0.80) 0%,
+    rgba(8, 8, 42, 0.75) 62%,
+    rgba(8, 8, 42, 0.26) 86%,
+    rgba(8, 8, 42, 0.04) 100%
+  );
+}
+
+/* ---- Section header ---- */
+.service__head {
+  position: absolute;
+  top: clamp(2.5rem, 5vh, 4rem);
+  left: 0;
+  right: 0;
+  padding: 0 var(--gutter);
+  max-width: var(--container);
+  margin: 0 auto;
+  z-index: 4;
+  pointer-events: none;
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.service__head .section__title { font-size: clamp(1.6rem, 3.5vw, 2.6rem); margin: 0; }
+.service__head .section__lede  { display: none; }   /* replaced by progress indicator */
+.service__head .section__eyebrow { margin: 0; }
+
+/* Active step name — shown next to the title, updates via JS */
+.service__active-step {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.3s var(--ease-smooth), transform 0.3s var(--ease-smooth);
+  padding: 0.3rem 0.8rem;
+  border: 1px solid rgba(0, 245, 212, 0.25);
+  border-radius: 999px;
+  background: rgba(0, 245, 212, 0.07);
+  pointer-events: none;
+}
+.service__active-step.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---- Progress indicator ---- */
+.service__progress {
+  position: absolute;
+  bottom: clamp(1.8rem, 4vh, 3rem);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  pointer-events: auto;
+}
+
+.service__progress-bar {
+  width: 200px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.service__progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--grad-accent);
+  border-radius: 2px;
+  transition: width 0.1s linear;
+  box-shadow: 0 0 8px rgba(0, 245, 212, 0.5);
+}
+
+.service__progress-dots {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+.svc-dot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-muted);
+  transition: color 0.3s var(--ease-smooth);
+  padding: 0.2rem;
+}
+.svc-dot__marker {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  background: transparent;
+  transition:
+    background  0.3s var(--ease-smooth),
+    border-color 0.3s var(--ease-smooth),
+    transform    0.35s var(--ease-bounce),
+    box-shadow   0.3s var(--ease-smooth);
+}
+.svc-dot__label {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  transition: opacity 0.3s var(--ease-smooth);
+}
+
+.svc-dot:hover .svc-dot__marker,
+.svc-dot.is-active .svc-dot__marker {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  transform: scale(1.4);
+  box-shadow: 0 0 10px rgba(0, 245, 212, 0.6);
+}
+.svc-dot.is-active { color: var(--color-accent); }
+.svc-dot.is-active .svc-dot__label { opacity: 1; }
+.svc-dot.is-past .svc-dot__marker {
+  background: rgba(0, 245, 212, 0.4);
+  border-color: rgba(0, 245, 212, 0.5);
+}
+
+/* ---- Wave connecting thread ---- */
+.service-thread {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: 200px;
+  width: 5000px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: 1;
+  filter: drop-shadow(0 0 18px rgba(0, 245, 212, 0.35));
+}
+#thread-path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+/* ---- Horizontal flex track ---- */
+.service-track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: clamp(2rem, 4.5vw, 4.5rem);
+  padding-left: clamp(8vw, 12vw, 14vw);
+  /* Right padding = small breathing room after last card only */
+  padding-right: clamp(3rem, 6vw, 6rem);
+  z-index: 2;
+  will-change: transform;
+}
+
+/* ---- Service step item ---- */
+.service-item {
+  flex: 0 0 auto;
+  width: clamp(300px, 34vw, 420px);
+  perspective: 900px;
+  position: relative;
+}
+
+/* Large decorative watermark number — injected by JS */
+.service-card__num {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.8rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(4.5rem, 6vw, 7rem);
+  line-height: 0.85;
+  background: var(--grad-accent);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  opacity: 0.07;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  letter-spacing: -0.04em;
+}
+
+/* ---- Flip card ---- */
+.service-card { width: 100%; }
+.service-card__inner {
+  position: relative;
+  width: 100%;
+  height: 480px;
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.service-item:hover .service-card__inner,
+.service-item:focus-within .service-card__inner { transform: rotateY(180deg); }
+
+.service-card__face {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+  border: 1px solid var(--color-line-2);
+  background: rgba(10, 10, 36, 0.62);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  padding: clamp(1.6rem, 2.5vw, 2.4rem);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  overflow: hidden;
+}
+.service-card__face::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--grad-accent-soft);
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-smooth);
+  pointer-events: none;
+  z-index: 1;
+}
+.service-item:hover .service-card__face::before { opacity: 1; }
+.service-card__back { transform: rotateY(180deg); }
+
+/* "Hover to flip" hint on front — subtle, fades on hover */
+.service-card__front::after {
+  content: "hover to flip →";
+  position: absolute;
+  bottom: 1.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  opacity: 0.32;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 0.3s var(--ease-smooth);
+}
+.service-item:hover .service-card__front::after { opacity: 0; }
+
+/* ---- Card content ---- */
+.service-icon {
+  width: 60px;
+  height: 60px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: rgba(0, 245, 212, 0.08);
+  border: 1px solid rgba(0, 245, 212, 0.2);
+  color: var(--color-accent);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+.service-icon svg { width: 34px; height: 34px; }
+
+.draw-path { stroke-dasharray: 100; stroke-dashoffset: 100; fill: none; }
+
+.service-step {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  position: relative;
+  z-index: 1;
+}
+.service-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.6rem, 2vw, 1.95rem);
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+  position: relative;
+  z-index: 1;
+}
+.service-text {
+  margin: 0;
+  color: var(--color-text-soft);
+  font-size: 0.95rem;
+  line-height: 1.65;
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
+.service-line {
+  display: block;
+  margin-top: auto;
+  height: 2px;
+  background: var(--grad-accent);
+  border-radius: 2px;
+  transform-origin: left center;
+  position: relative;
+  z-index: 1;
+}
+
+.service-card__back h4 {
+  margin: 0 0 0.7rem;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: var(--color-text);
+}
+.service-card__back ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.6rem; }
+.service-card__back li {
+  position: relative;
+  padding-left: 1.3rem;
+  font-size: 0.92rem;
+  color: var(--color-text-soft);
+  line-height: 1.5;
+}
+.service-card__back li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0.7em;
+  width: 8px; height: 1px;
+  background: var(--color-accent);
+}
+
+/* ---- Light theme overrides (already in theme-light.css, mirrored here for service-pin) ---- */
+
+/* ---- Responsive ---- */
+@media (max-width: 720px) {
+  .section--service { height: auto !important; }
+  .service__pin {
+    position: relative; height: auto; min-height: 100vh;
+    padding: clamp(5rem, 10vw, 7rem) 0 5rem;
+    background: none;
+  }
+  .service__head {
+    position: relative; padding: 0 var(--gutter) 1.5rem; top: 0;
+    flex-direction: column; gap: 0.5rem;
+  }
+  .service__head .section__lede { display: block; }
+  .service-thread { display: none; }
+  .service__progress { display: none; }
+  .service__active-step { display: none; }
+  .service-track {
+    position: relative;
+    flex-direction: column;
+    padding: 0 var(--gutter);
+    align-items: stretch;
+    gap: 1.2rem;
+  }
+  .service-item { width: 100%; }
+  .service-card__inner { height: auto; min-height: 320px; }
+  .service-card__back { display: none; }
+  .service-card__front::after { display: none; }
+  .service-card__num { display: none; }
+}

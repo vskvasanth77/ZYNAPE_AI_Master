@@ -1,0 +1,239 @@
+/* ===== OPERATIONS — Cloud · SOC · NOC ===== */
+.section--operations {
+  position: relative;
+  padding: clamp(4rem, 8vw, 7rem) 0 clamp(5rem, 9vw, 8rem);
+  background:
+    radial-gradient(900px 500px at 8% -10%, rgba(0, 245, 212, 0.08), transparent 60%),
+    radial-gradient(900px 500px at 100% 110%, rgba(123, 47, 247, 0.10), transparent 60%);
+}
+
+/* Robot is at world x≈-2.55 (≈5% from viewport left).
+ * Panel starts at 30vw — giving a 1.65-unit (≈420px on 1440px) clear
+ * gap between robot glow edge and panel left edge. 22vw was too narrow:
+ * the Three.js accent/underglow light bloom spread into the panel zone. */
+.ops__head {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: clamp(2rem, 4vw, 3rem) var(--gutter) clamp(2.5rem, 5vw, 4rem);
+  text-align: left;
+  padding-left: clamp(1rem, 30vw, 22rem);
+}
+.ops__head .section__title { font-size: clamp(2rem, 5vw, 3.6rem); }
+
+.ops__grid {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: grid;
+  gap: clamp(1.6rem, 2.6vw, 2.4rem);
+  padding-left: clamp(1rem, 30vw, 22rem);
+}
+
+.ops-panel {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: clamp(1.4rem, 2.5vw, 2.4rem);
+  padding: clamp(1.6rem, 2.6vw, 2.4rem);
+  background: rgba(10, 10, 36, 0.55);
+  border: 1px solid var(--color-line-2);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  overflow: hidden;
+  isolation: isolate;
+  opacity: 0;
+  transform: translateY(40px);
+  will-change: transform, opacity;
+}
+.ops-panel::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(135deg, rgba(0, 245, 212, 0.0), rgba(0, 245, 212, 0.35), rgba(123, 47, 247, 0.35), rgba(0, 245, 212, 0.0));
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-smooth);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  padding: 1px;
+}
+.ops-panel:hover::before { opacity: 1; }
+
+.ops-panel--soc { grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); }
+.ops-panel--soc .ops-panel__viz { order: 2; }
+.ops-panel--soc .ops-panel__copy { order: 1; }
+
+.ops-panel__viz {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at center, rgba(0, 245, 212, 0.08), transparent 65%),
+    rgba(5, 5, 16, 0.65);
+  border: 1px solid var(--color-line);
+  min-height: 260px;
+  display: grid;
+  place-items: stretch;
+}
+.ops-panel__viz svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  min-height: 260px;
+}
+
+.ops-panel__copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.85rem;
+  padding: 0.4rem 0;
+}
+
+.ops-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.4rem 0.85rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  border: 1px solid rgba(0, 245, 212, 0.35);
+  background: rgba(0, 245, 212, 0.08);
+  border-radius: 999px;
+  align-self: flex-start;
+}
+.ops-tag__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 12px var(--color-accent);
+  animation: opsPulse 1.6s ease-in-out infinite;
+}
+.ops-tag--coral { color: var(--color-accent-3); border-color: rgba(255, 107, 107, 0.4); background: rgba(255, 107, 107, 0.08); }
+.ops-tag--coral .ops-tag__dot { background: var(--color-accent-3); box-shadow: 0 0 12px var(--color-accent-3); }
+.ops-tag--purple { color: #b691ff; border-color: rgba(123, 47, 247, 0.45); background: rgba(123, 47, 247, 0.10); }
+.ops-tag--purple .ops-tag__dot { background: #b691ff; box-shadow: 0 0 12px #7b2ff7; }
+@keyframes opsPulse { 50% { opacity: 0.35; transform: scale(0.75); } }
+
+.ops-panel__title {
+  margin: 0.25rem 0 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+}
+.ops-panel__title em {
+  font-style: normal;
+  background: var(--grad-accent);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.ops-panel__lede {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--color-text-soft);
+}
+.ops-panel__list {
+  list-style: none;
+  padding: 0;
+  margin: 0.4rem 0 0.6rem;
+  display: grid;
+  gap: 0.45rem;
+}
+.ops-panel__list li {
+  position: relative;
+  padding-left: 1.3rem;
+  font-size: 0.93rem;
+  color: var(--color-text);
+}
+.ops-panel__list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: 8px;
+  height: 1px;
+  background: var(--color-accent);
+}
+.ops-panel__metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  padding-top: 0.9rem;
+  margin-top: 0.4rem;
+  border-top: 1px solid var(--color-line);
+}
+.ops-panel__metrics > div { display: flex; flex-direction: column; gap: 0.2rem; }
+.ops-panel__metrics strong {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.05rem, 1.5vw, 1.4rem);
+  letter-spacing: -0.01em;
+  background: var(--grad-accent);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.ops-panel__metrics span {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* ============================================================
+ * Cloud Data Center viz — animated server racks + flow
+ * ============================================================ */
+.dc-viz { background: linear-gradient(180deg, rgba(0, 245, 212, 0.04), rgba(123, 47, 247, 0.04)); }
+.dc-rack-leds rect { fill: rgba(0, 245, 212, 0.18); }
+.dc-rack-leds rect.is-on { fill: rgba(0, 245, 212, 0.95); filter: drop-shadow(0 0 4px rgba(0, 245, 212, 0.7)); }
+
+/* ============================================================
+ * SOC viz — radar
+ * ============================================================ */
+.soc-viz { background: radial-gradient(circle at center, rgba(0, 245, 212, 0.06), transparent 70%); }
+.soc-bar { fill: rgba(0, 245, 212, 0.4); }
+.soc-bar.is-on { fill: rgba(0, 245, 212, 0.95); }
+.soc-pulse { transform-box: fill-box; transform-origin: center; }
+.soc-blip { transform-box: fill-box; transform-origin: center; }
+
+/* ============================================================
+ * NOC viz
+ * ============================================================ */
+.noc-viz { background: radial-gradient(ellipse at center, rgba(123, 47, 247, 0.06), transparent 70%); }
+.noc-tick { fill: rgba(0, 245, 212, 0.35); transform-origin: bottom; transform-box: fill-box; }
+.noc-edge { stroke-dasharray: 4 4; stroke-dashoffset: 0; }
+.noc-node circle { transform-box: fill-box; transform-origin: center; }
+
+@media (max-width: 960px) {
+  /* Match desktop 30vw so the clear zone for the robot is consistent
+     at all viewport sizes above 640px. */
+  .ops__head, .ops__grid { padding-left: clamp(1rem, 30vw, 14rem); }
+  .ops-panel,
+  .ops-panel--soc { grid-template-columns: 1fr; }
+  .ops-panel--soc .ops-panel__viz { order: 1; }
+  .ops-panel--soc .ops-panel__copy { order: 2; }
+  .ops-panel__viz { min-height: 220px; }
+  .ops-panel__metrics { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 640px) {
+  .ops__head, .ops__grid { padding-left: var(--gutter); }
+  .ops-panel__metrics { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 540px) {
+  .ops-panel__metrics { grid-template-columns: 1fr 1fr; }
+}

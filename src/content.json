@@ -1,0 +1,327 @@
+{
+  "meta": {
+    "title": "Zynape — Intelligence. Engineered.",
+    "description": "Zynape builds intelligent systems, cloud infrastructure, and adaptive software for ambitious teams. Intelligence. Engineered.",
+    "ogTitle": "Zynape — Intelligence. Engineered.",
+    "ogDescription": "A robot-guided journey through six engineering domains."
+  },
+  "nav": {
+    "home": "Home",
+    "solutions": "Solutions",
+    "operations": "Operations",
+    "service": "Service",
+    "contact": "Contact"
+  },
+  "robotMessages": {
+    "home": "Hi — I'm your guide. Scroll to explore.",
+    "solutions": "Six domains. Pick one to dive in.",
+    "operations": "Cloud · SOC · NOC — operations that never sleep.",
+    "service": "Here's how we work. Scroll horizontally →",
+    "contact": "Let's connect — type your message."
+  },
+  "home": {
+    "eyebrow": "Engineering studio · Est. 2024",
+    "brand": "ZYNAPE",
+    "tagline": "Intelligence. <em>Engineered.</em>",
+    "sub": "We design and ship adaptive systems — from autonomous AI pipelines to cloud-native platforms — for teams that refuse to ship ordinary products.",
+    "ctaPrimary": "Explore Zynape",
+    "ctaSecondary": "Start a project",
+    "stats": [
+      { "num": 42, "label": "Shipped systems" },
+      { "num": 6,  "label": "Domains" },
+      { "num": 99, "label": "% on-time" }
+    ],
+    "scrollHint": "Scroll"
+  },
+  "solutions": {
+    "eyebrow": "01 · Solutions",
+    "title": "Six domains. <em>One studio.</em>",
+    "lede": "Pick a discipline. Open it. Each card unfolds into its own world — a deep dive into how we approach the work.",
+    "domains": [
+      {
+        "id": "ai",
+        "title": "AI &amp; Automation",
+        "desc": "Intelligent systems that learn, decide, and adapt at production scale.",
+        "detail": {
+          "eyebrow": "AI &amp; Automation",
+          "title": "Engines that <em>think</em>.",
+          "lede": "From retrieval-augmented assistants to autonomous decision pipelines, we ship AI that is observable, evaluable, and safe.",
+          "list": [
+            "RAG &amp; agentic systems with tool use",
+            "Custom evaluation harnesses &amp; guardrails",
+            "Vector indexes, hybrid retrieval, model routing",
+            "LLMOps: tracing, cost telemetry, A/B"
+          ],
+          "metrics": [
+            { "strong": "3.4×",        "label": "throughput vs. baseline" },
+            { "strong": "78%",         "label": "cost reduction" },
+            { "strong": "p50&nbsp;420ms", "label": "response time" }
+          ]
+        }
+      },
+      {
+        "id": "cloud",
+        "title": "Cloud Infrastructure",
+        "desc": "Resilient, multi-region platforms with infrastructure-as-code from day one.",
+        "detail": {
+          "eyebrow": "Cloud Infrastructure",
+          "title": "Platforms that <em>don't blink</em>.",
+          "lede": "Multi-cloud, multi-region, multi-team. We build the platform substrate before the product team needs to ask.",
+          "list": [
+            "Kubernetes, service mesh, GitOps delivery",
+            "Terraform / Pulumi — every resource declarative",
+            "Observability: traces, metrics, structured logs",
+            "Cost guardrails &amp; capacity planning"
+          ],
+          "metrics": [
+            { "strong": "99.99%",   "label": "availability" },
+            { "strong": "4&nbsp;min", "label": "median deploy" },
+            { "strong": "6 regions","label": "active-active" }
+          ]
+        }
+      },
+      {
+        "id": "cybersec",
+        "title": "Cybersecurity",
+        "desc": "Threat modeling, zero-trust architecture, and continuous security posture.",
+        "detail": {
+          "eyebrow": "Cybersecurity",
+          "title": "Defense in <em>depth</em>.",
+          "lede": "Zero-trust by default. Your perimeter is identity, your traffic is encrypted, your secrets are short-lived.",
+          "list": [
+            "Threat modeling &amp; tabletop exercises",
+            "SBOM, signed builds, supply-chain hygiene",
+            "Secrets management with rotation",
+            "Continuous compliance: SOC 2, HIPAA, ISO"
+          ],
+          "metrics": [
+            { "strong": "0",        "label": "critical CVEs in prod" },
+            { "strong": "&lt;15 min", "label": "secret rotation" },
+            { "strong": "SOC 2",    "label": "type II ready" }
+          ]
+        }
+      },
+      {
+        "id": "web",
+        "title": "Web Platforms",
+        "desc": "Edge-first architectures with type-safe end-to-end stacks.",
+        "detail": {
+          "eyebrow": "Web Platforms",
+          "title": "Web that <em>moves</em>.",
+          "lede": "Performance budgets enforced in CI. Accessibility audits per release. The kind of frontend that hits 100 across the board.",
+          "list": [
+            "React, SvelteKit, Astro — fit-for-purpose",
+            "Edge runtime &amp; streaming SSR",
+            "Design systems with Storybook + Chromatic",
+            "WCAG 2.2 AA, Lighthouse 95+ minimum"
+          ],
+          "metrics": [
+            { "strong": "97",      "label": "Lighthouse avg" },
+            { "strong": "&lt;1.2s","label": "LCP at p75" },
+            { "strong": "0 a11y",  "label": "blockers shipped" }
+          ]
+        }
+      },
+      {
+        "id": "data",
+        "title": "Data Analytics",
+        "desc": "Pipelines, warehouses, and dashboards that decision-makers actually read.",
+        "detail": {
+          "eyebrow": "Data Analytics",
+          "title": "Numbers that <em>narrate</em>.",
+          "lede": "From event capture to executive dashboards. We treat the data layer as a product, not a side-effect.",
+          "list": [
+            "dbt, Airflow, streaming ELT",
+            "Warehouse modeling &amp; semantic layer",
+            "Self-serve analytics for non-engineers",
+            "Forecasting &amp; anomaly detection"
+          ],
+          "metrics": [
+            { "strong": "&lt;30s", "label": "data freshness" },
+            { "strong": "500B+",  "label": "events / month" },
+            { "strong": "92%",    "label": "self-serve queries" }
+          ]
+        }
+      },
+      {
+        "id": "design",
+        "title": "Product Design",
+        "desc": "Research-led product design that ships with the engineering team, not after.",
+        "detail": {
+          "eyebrow": "Product Design",
+          "title": "Designed to be <em>used</em>.",
+          "lede": "Discovery sprints, prototypes that are real code, and design systems that are a single source of truth.",
+          "list": [
+            "Discovery, JTBD, qualitative research",
+            "Figma → tokens → production parity",
+            "Motion language and interaction models",
+            "Brand systems engineered for scale"
+          ],
+          "metrics": [
+            { "strong": "+38%", "label": "activation lift" },
+            { "strong": "0 → 1","label": "brand systems" },
+            { "strong": "5×",   "label": "design velocity" }
+          ]
+        }
+      }
+    ]
+  },
+  "operations": {
+    "eyebrow": "02 · Operations",
+    "title": "Always-on. <em>Always watching.</em>",
+    "lede": "Three command centers behind every Zynape platform — engineered to monitor, defend, and scale before you ever notice a wobble.",
+    "panels": [
+      {
+        "id": "cloud",
+        "tag": "Cloud · Data Center",
+        "title": "Multi-region <em>compute fabric</em>.",
+        "lede": "Active-active deployments across regions, hot failover, infra-as-code from line one — capacity scales before your traffic does.",
+        "list": [
+          "Multi-cloud + on-prem hybrid topology",
+          "GitOps continuous delivery, blue/green",
+          "Sub-minute auto-scaling on demand spikes",
+          "Carbon-aware workload scheduling"
+        ],
+        "metrics": [
+          { "strong": "99.999%", "label": "uptime SLO" },
+          { "strong": "&lt; 30s","label": "region failover" },
+          { "strong": "6 PoPs",  "label": "active-active" }
+        ]
+      },
+      {
+        "id": "soc",
+        "tag": "SOC · Security Ops",
+        "title": "Threats <em>caught before</em> they breach.",
+        "lede": "24/7 detection, response, and forensic trail. We harden the perimeter, watch the inside, and rehearse the worst day.",
+        "list": [
+          "SIEM + SOAR with custom detections",
+          "Mean-time-to-respond under fifteen minutes",
+          "Red-team exercises &amp; tabletop drills",
+          "Compliance: SOC 2, ISO 27001, HIPAA"
+        ],
+        "metrics": [
+          { "strong": "&lt; 15m", "label": "MTTR" },
+          { "strong": "24/7",    "label": "threat watch" },
+          { "strong": "0",       "label": "breaches '23–'25" }
+        ]
+      },
+      {
+        "id": "noc",
+        "tag": "NOC · Network Ops",
+        "title": "Routes that <em>self-heal</em>.",
+        "lede": "Edge-to-edge visibility, BGP route shaping, and predictive failure detection — your network reroutes before a packet drops.",
+        "list": [
+          "Real-time topology &amp; latency heatmap",
+          "Anomaly detection on telemetry streams",
+          "Zero-touch provisioning at every PoP",
+          "Predictive capacity &amp; congestion forecasts"
+        ],
+        "metrics": [
+          { "strong": "&lt; 8 ms",  "label": "p50 hop" },
+          { "strong": "1.2 Tb/s",  "label": "peak throughput" },
+          { "strong": "180+",      "label": "PoPs reachable" }
+        ]
+      }
+    ]
+  },
+  "service": {
+    "eyebrow": "03 · Service",
+    "title": "How we <em>work</em>.",
+    "lede": "Five movements. One arc. Each card flips to reveal what we actually do inside — hover any step to see.",
+    "steps": [
+      {
+        "step": "Step 01",
+        "title": "Discover",
+        "text": "We embed with stakeholders, map jobs-to-be-done, and identify the hottest constraints to break first.",
+        "back": {
+          "heading": "Inside Discover",
+          "items": [
+            "2-week embedded sprint",
+            "User &amp; stakeholder interviews",
+            "Constraint &amp; risk register",
+            "Solution shape sketch"
+          ]
+        }
+      },
+      {
+        "step": "Step 02",
+        "title": "Design",
+        "text": "High-fidelity prototypes that engineers can pull tokens from. No throwaway artifacts.",
+        "back": {
+          "heading": "Inside Design",
+          "items": [
+            "Figma libraries → code tokens",
+            "Motion + interaction prototypes",
+            "Accessibility annotations",
+            "Engineering handoff docs"
+          ]
+        }
+      },
+      {
+        "step": "Step 03",
+        "title": "Build",
+        "text": "Trunk-based, type-safe, observable. We ship in week one and keep shipping.",
+        "back": {
+          "heading": "Inside Build",
+          "items": [
+            "Trunk-based delivery",
+            "Tests as documentation",
+            "Observability from line one",
+            "Daily preview deploys"
+          ]
+        }
+      },
+      {
+        "step": "Step 04",
+        "title": "Validate",
+        "text": "A/B tests, eval suites, real-user monitoring. We don't celebrate launches — we celebrate impact.",
+        "back": {
+          "heading": "Inside Validate",
+          "items": [
+            "A/B &amp; multi-arm experiments",
+            "Eval harnesses for AI features",
+            "RUM, error budgets, SLOs",
+            "Weekly impact readouts"
+          ]
+        }
+      },
+      {
+        "step": "Step 05",
+        "title": "Scale",
+        "text": "Hand-off, training, and runbooks. Or stay on retainer — we're flexible.",
+        "back": {
+          "heading": "Inside Scale",
+          "items": [
+            "Runbooks &amp; on-call training",
+            "Long-term advisory retainers",
+            "Team upskilling workshops",
+            "Architecture decision records"
+          ]
+        }
+      }
+    ]
+  },
+  "contact": {
+    "eyebrow": "04 · Contact",
+    "heading": "Start a <em>conversation</em>.",
+    "lede": "Tell us what you're building. We answer every message inside one business day.",
+    "submit": "Send message",
+    "successText": "Thanks — message received. We'll reply shortly.",
+    "fields": {
+      "name": "Your name",
+      "email": "Email address",
+      "company": "Company",
+      "companyOptional": "(optional)",
+      "message": "What would you like to build?"
+    },
+    "aside": [
+      { "label": "Studio",        "value": "Remote-first · GMT+0 to GMT-8" },
+      { "label": "Response time", "value": "&lt; 1 business day" },
+      { "label": "Direct line",   "value": "<a href=\"mailto:hello@zynape.studio\">hello@zynape.studio</a>" }
+    ]
+  },
+  "footer": {
+    "brand": "Zynape",
+    "line": "Intelligence. Engineered. © 2026"
+  }
+}

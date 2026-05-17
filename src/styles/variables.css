@@ -1,0 +1,101 @@
+:root {
+  /* Brand palette — dark (default) */
+  --color-bg:           #050510;
+  --color-bg-2:         #0a0a24;
+  --color-bg-3:         #08082a;
+  --color-bg-soft:      #0c0c30;
+  --color-accent:       #00f5d4;
+  --color-accent-2:     #7b2ff7;
+  --color-accent-3:     #ff6b6b;
+  --color-accent-4:     #ffe066;
+  --color-text:         #e8e8f0;
+  --color-text-muted:   #8888aa;
+  --color-text-soft:    #b8b8d0;
+  --color-line:         rgba(232, 232, 240, 0.08);
+  --color-line-2:       rgba(232, 232, 240, 0.18);
+  --color-card:         rgba(255, 255, 255, 0.025);
+  --color-card-hover:   rgba(255, 255, 255, 0.05);
+
+  /* Gradients */
+  --grad-accent:        linear-gradient(135deg, #00f5d4 0%, #7b2ff7 100%);
+  --grad-accent-soft:   linear-gradient(135deg, rgba(0, 245, 212, 0.18) 0%, rgba(123, 47, 247, 0.18) 100%);
+  --grad-text:          linear-gradient(180deg, #ffffff 0%, #c8c8e0 100%);
+
+  /* Z-index layers */
+  --z-canvas:    0;
+  --z-aurora:    1;
+  --z-content:   2;
+  --z-bubble:    8;
+  --z-card-exp:  10;
+  --z-nav:       20;
+  --z-progress:  30;
+  --z-cursor:    100;
+
+  /* Typography */
+  --font-display: "Space Grotesk", "Inter", system-ui, -apple-system, sans-serif;
+  --font-body:    "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, "SF Mono", monospace;
+
+  /* Sizing */
+  --container:    min(1320px, 92vw);
+  --gutter:       clamp(1rem, 3vw, 2.5rem);
+  --radius-sm:    8px;
+  --radius:       16px;
+  --radius-lg:    28px;
+
+  /* Motion */
+  --ease-smooth:  cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-snap:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-bounce:  cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ============================================================
+ * Light theme — "Technical Daylight"
+ *
+ * Blue-tinted off-white surface, deep navy text.
+ * Accents darkened for WCAG AA contrast on pale backgrounds:
+ *   cyan  #00f5d4 → #00897a  (4.85:1 on white)
+ *   purple #7b2ff7 → #5e18e4 (5.12:1 on white)
+ * ============================================================ */
+body.theme-light {
+  /*
+   * LIGHT MODE — "Colourful Daylight"
+   *
+   * Body: soft lavender (#f2f0fb) — clearly a colour, not white/gray.
+   * Cards: rgba(255,255,255,0.78) frosted glass on the coloured background.
+   * Each section gets its own colour accent at ~5-8% tint.
+   * This keeps readability while having genuine colour personality.
+   */
+
+  /* Base backgrounds — clearly MINT, not white */
+  --color-bg:           #c4ede5;
+  --color-bg-2:         #b4e5dc;
+  --color-bg-3:         #a8ddd4;
+  --color-bg-soft:      #d8f4f0;
+
+  /* Accents — WCAG AA on light backgrounds */
+  --color-accent:       #00897a;
+  --color-accent-2:     #5e18e4;
+  --color-accent-3:     #c83232;
+  --color-accent-4:     #9a7600;
+
+  /* Text */
+  --color-text:         #0f0f28;
+  --color-text-soft:    #42436a;
+  --color-text-muted:   #78799a;
+
+  /* Borders */
+  --color-line:         rgba(15, 15, 40, 0.08);
+  --color-line-2:       rgba(15, 15, 40, 0.14);
+
+  /* Cards — frosted glass on the coloured body */
+  --color-card:         rgba(255, 255, 255, 0.78);
+  --color-card-hover:   rgba(255, 255, 255, 0.92);
+
+  /* Gradients */
+  --grad-accent:        linear-gradient(135deg, #00897a 0%, #5e18e4 100%);
+  --grad-accent-soft:   linear-gradient(135deg, rgba(0, 137, 122, 0.12) 0%, rgba(94, 24, 228, 0.12) 100%);
+  --grad-text:          linear-gradient(180deg, #0f0f28 0%, #38385e 100%);
+
+  color-scheme: light;
+}

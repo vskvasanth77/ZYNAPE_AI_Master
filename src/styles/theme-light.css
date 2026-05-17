@@ -1,0 +1,659 @@
+/* ============================================================
+ * theme-light.css  —  Colourful Daylight  v3
+ *
+ * Core changes from screenshot analysis:
+ *  1. Three.js ambient boosted 0.9→2.2 so robot shows on light bg
+ *  2. Body gradient has visible teal↔purple sweep, not near-white
+ *  3. Home layers 13%→32% opacity — actually visible colour blobs
+ *  4. ZYNAPE per-char colours Z=teal → E=purple (spans the word)
+ *  5. Section backgrounds distinct, not all the same shade
+ *  6. Cards: frosted glass on the coloured background, not flat white
+ * ============================================================ */
+
+/* ── Canvas: match the body base so 3D empty areas blend ──── */
+body.theme-light #bg-canvas {
+  background: var(--color-bg);
+}
+
+/* ── Body: vivid teal-purple sweep, NOT white ────────────── */
+body.theme-light {
+  background:
+    radial-gradient(1800px 1200px at  12%  -5%, rgba(0, 212, 195, 0.50), transparent 50%),
+    radial-gradient(1600px 1100px at  92%  18%, rgba(110, 50, 245, 0.38), transparent 50%),
+    radial-gradient(1400px  900px at  45% 105%, rgba(0, 175, 160, 0.30), transparent 55%),
+    linear-gradient(155deg, #baeee6 0%, #d8d0f8 50%, #c8dcf8 100%);
+}
+
+/* ── Aurora: more vivid, multiply for ink-wash feel ────────── */
+body.theme-light .aurora__blob--1 {
+  background: radial-gradient(circle, #70e8dc, transparent 60%);
+  opacity: 0.45;
+  mix-blend-mode: multiply;
+}
+body.theme-light .aurora__blob--2 {
+  background: radial-gradient(circle, #b090f0, transparent 60%);
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+}
+body.theme-light .aurora__blob--3 {
+  background: radial-gradient(circle, #f0a0c0, transparent 65%);
+  opacity: 0.28;
+  mix-blend-mode: multiply;
+}
+
+/* ── Scrollbar ──────────────────────────────────────────── */
+body.theme-light ::-webkit-scrollbar        { width: 5px; }
+body.theme-light ::-webkit-scrollbar-track  { background: rgba(0, 137, 122, 0.06); }
+body.theme-light ::-webkit-scrollbar-thumb  {
+  background: rgba(0, 137, 122, 0.30);
+  border-radius: 999px;
+}
+body.theme-light ::-webkit-scrollbar-thumb:hover { background: var(--color-accent); }
+
+/* ── Cursor / selection ─────────────────────────────────── */
+body.theme-light .cursor-outer { border-color: rgba(0, 137, 122, 0.65); }
+body.theme-light ::selection {
+  background: rgba(0, 137, 122, 0.20);
+  color: var(--color-text);
+}
+
+/* ══════════════════════════════════════════════════════════
+   NAVIGATION
+   ══════════════════════════════════════════════════════════ */
+body.theme-light .zynape-nav {
+  background: rgba(255, 255, 255, 0.84);
+  border-color: rgba(0, 137, 122, 0.16);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow:
+    0 1px 0 rgba(0, 137, 122, 0.10),
+    0 8px 28px -8px rgba(0, 100, 90, 0.16);
+}
+body.theme-light .nav-item           { color: var(--color-text-soft); }
+body.theme-light .nav-item:hover     { color: var(--color-text); }
+body.theme-light .nav-item.is-active { color: #fff; }
+body.theme-light .scroll-progress    { background: rgba(0, 137, 122, 0.10); }
+
+/* ══════════════════════════════════════════════════════════
+   SPEECH BUBBLE
+   ══════════════════════════════════════════════════════════ */
+body.theme-light .speech-bubble {
+  background: rgba(255, 255, 255, 0.94);
+  border-color: rgba(0, 137, 122, 0.18);
+  color: var(--color-text);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 8px 36px -8px rgba(0, 137, 122, 0.20);
+}
+body.theme-light .speech-bubble__tail {
+  background: rgba(255, 255, 255, 0.94);
+  border-color: rgba(0, 137, 122, 0.18);
+}
+
+/* ══════════════════════════════════════════════════════════
+   BUTTONS
+   ══════════════════════════════════════════════════════════ */
+body.theme-light .btn--primary {
+  box-shadow: 0 4px 20px -4px rgba(0, 137, 122, 0.50);
+}
+body.theme-light .btn--primary:hover {
+  box-shadow: 0 8px 32px -6px rgba(0, 137, 122, 0.65);
+}
+body.theme-light .btn--ghost {
+  border-color: rgba(0, 137, 122, 0.22);
+  background: rgba(255, 255, 255, 0.65);
+  color: var(--color-text);
+  backdrop-filter: blur(12px);
+}
+body.theme-light .btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.90);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  box-shadow: 0 4px 18px -4px rgba(0, 137, 122, 0.25);
+}
+
+/* ══════════════════════════════════════════════════════════
+   HOME PAGE
+   ══════════════════════════════════════════════════════════ */
+/* Background layers — vivid coloured blobs */
+body.theme-light .layer--1 {
+  background:
+    radial-gradient(900px 600px at  10% 18%, rgba(0, 200, 180, 0.45), transparent 60%),
+    radial-gradient(800px 600px at  88% 82%, rgba(110, 50, 240, 0.38), transparent 60%);
+}
+body.theme-light .layer--2 {
+  background-image:
+    linear-gradient(45deg, transparent 49.5%, rgba(0, 160, 145, 0.10) 49.5% 50.5%, transparent 50.5%);
+  opacity: 1;
+}
+body.theme-light .layer--grid {
+  background-image:
+    linear-gradient(to right,  rgba(0, 100, 90, 0.09) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 100, 90, 0.09) 1px, transparent 1px);
+}
+
+/* ── ZYNAPE logo fix ──────────────────────────────────────────
+   BUG: using `background: #hex` shorthand resets background-clip
+   to border-box, making chars render as solid colour BOXES.
+   FIX: set background as a gradient on the char itself so clip
+   and fill are never separated.  Each char gets a diagonal
+   teal→purple gradient — readable, vibrant, no solid blocks.
+   ─────────────────────────────────────────────────────────── */
+body.theme-light .home__logo .char {
+  background: linear-gradient(135deg, #00a896 0%, #5e18e4 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Eyebrow pill */
+body.theme-light .home__eyebrow {
+  border-color: rgba(0, 137, 122, 0.22);
+  background: rgba(255, 255, 255, 0.70);
+  color: var(--color-text-muted);
+  backdrop-filter: blur(3px);
+}
+body.theme-light .home__stats       { border-top-color: rgba(0, 137, 122, 0.14); }
+body.theme-light .home__scroll-hint { color: var(--color-text-muted); }
+
+/* ══════════════════════════════════════════════════════════
+   SOLUTIONS DOMAIN CARDS (index.html)
+   Each domain card has its own accent colour tint.
+   ══════════════════════════════════════════════════════════ */
+body.theme-light .domain-card {
+  background: rgba(255, 255, 255, 0.72);
+  border-color: rgba(0, 137, 122, 0.12);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 2px 20px -4px rgba(0, 137, 122, 0.12);
+}
+body.theme-light .domain-card:hover {
+  background: rgba(255, 255, 255, 0.90);
+  box-shadow: 0 6px 30px -6px rgba(0, 100, 90, 0.16);
+}
+
+body.theme-light .domain-card[data-domain="ai"] {
+  background: rgba(238, 230, 255, 0.78);
+  border-color: rgba(94, 24, 228, 0.20);
+}
+body.theme-light .domain-card[data-domain="ai"]:hover {
+  border-color: rgba(94, 24, 228, 0.38);
+  box-shadow: 0 6px 30px -6px rgba(94, 24, 228, 0.16);
+}
+body.theme-light .domain-card[data-domain="cloud"] {
+  background: rgba(220, 248, 244, 0.78);
+  border-color: rgba(0, 137, 122, 0.22);
+}
+body.theme-light .domain-card[data-domain="cybersec"] {
+  background: rgba(255, 232, 232, 0.78);
+  border-color: rgba(200, 50, 50, 0.20);
+}
+body.theme-light .domain-card[data-domain="cybersec"]:hover {
+  border-color: rgba(200, 50, 50, 0.38);
+  box-shadow: 0 6px 30px -6px rgba(200, 50, 50, 0.14);
+}
+body.theme-light .domain-card[data-domain="web"] {
+  background: rgba(218, 246, 242, 0.78);
+  border-color: rgba(0, 137, 122, 0.20);
+}
+body.theme-light .domain-card[data-domain="data"] {
+  background: rgba(255, 248, 215, 0.78);
+  border-color: rgba(154, 118, 0, 0.20);
+}
+body.theme-light .domain-card[data-domain="data"]:hover {
+  border-color: rgba(154, 118, 0, 0.38);
+  box-shadow: 0 6px 30px -6px rgba(154, 118, 0, 0.14);
+}
+body.theme-light .domain-card[data-domain="design"] {
+  background: rgba(238, 230, 255, 0.78);
+  border-color: rgba(94, 24, 228, 0.18);
+}
+
+body.theme-light .domain-card__icon {
+  background: rgba(0, 137, 122, 0.10);
+  border-color: rgba(0, 137, 122, 0.20);
+}
+body.theme-light .domain-backdrop {
+  background: radial-gradient(ellipse at center,
+    rgba(215, 245, 240, 0.84) 0%, rgba(200, 235, 255, 0.96) 70%);
+}
+body.theme-light .domain-card__detail {
+  background:
+    radial-gradient(900px 500px at 75% 0%, rgba(0, 200, 180, 0.07), transparent 55%),
+    radial-gradient(700px 600px at 5% 100%, rgba(110, 50, 245, 0.07), transparent 55%),
+    #f0fcfa;
+  border-color: rgba(0, 137, 122, 0.14);
+  box-shadow: 0 40px 100px -24px rgba(0, 100, 90, 0.20);
+}
+body.theme-light .domain-card__close {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(0, 137, 122, 0.14);
+}
+body.theme-light .domain-card__close:hover {
+  background: #ffffff;
+  border-color: var(--color-accent);
+}
+body.theme-light .domain-detail__viz {
+  background:
+    radial-gradient(ellipse at center, rgba(0, 200, 180, 0.07), transparent 65%),
+    rgba(240, 252, 250, 0.92);
+  border-color: rgba(0, 137, 122, 0.10);
+}
+body.theme-light .domain-detail__metrics { border-top-color: rgba(0, 137, 122, 0.10); }
+body.theme-light .domain-detail__list li::before { background: var(--color-accent); }
+
+/* ══════════════════════════════════════════════════════════
+   OPERATIONS (index.html)
+   Each panel tinted by its topic. Robot left-bottom → transparent left.
+   ══════════════════════════════════════════════════════════ */
+body.theme-light .section--operations {
+  /* Transparent left (0-30%) = robot zone stays visible on canvas.
+     Solid right (30%+) = panel zone has clean light background. */
+  background:
+    linear-gradient(to right,
+      rgba(236, 249, 247, 0.04) 0%,
+      rgba(236, 249, 247, 0.50) 28%,
+      var(--color-bg) 48%
+    );
+}
+body.theme-light .ops-panel {
+  background: rgba(255, 255, 255, 0.75);
+  border-color: rgba(0, 137, 122, 0.12);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 2px 20px -4px rgba(0, 137, 122, 0.10);
+}
+body.theme-light .ops-panel--cloud {
+  background: linear-gradient(140deg, rgba(0, 212, 195, 0.12) 0%, rgba(255,255,255,0.82) 55%);
+  border-color: rgba(0, 137, 122, 0.20);
+}
+body.theme-light .ops-panel--soc {
+  background: linear-gradient(140deg, rgba(200, 50, 50, 0.10) 0%, rgba(255,255,255,0.82) 55%);
+  border-color: rgba(200, 50, 50, 0.18);
+}
+body.theme-light .ops-panel--noc {
+  background: linear-gradient(140deg, rgba(94, 24, 228, 0.10) 0%, rgba(255,255,255,0.82) 55%);
+  border-color: rgba(94, 24, 228, 0.18);
+}
+body.theme-light .ops-panel__viz {
+  background:
+    radial-gradient(ellipse at center, rgba(0, 200, 180, 0.08), transparent 65%),
+    rgba(240, 252, 250, 0.88);
+  border-color: rgba(0, 137, 122, 0.08);
+}
+body.theme-light .ops-tag {
+  border-color: rgba(0, 137, 122, 0.30);
+  background: rgba(0, 212, 195, 0.10);
+}
+body.theme-light .ops-tag--coral  {
+  border-color: rgba(200, 50, 50, 0.26);
+  background: rgba(200, 50, 50, 0.08);
+}
+body.theme-light .ops-tag--purple {
+  border-color: rgba(94, 24, 228, 0.24);
+  background: rgba(94, 24, 228, 0.07);
+}
+body.theme-light .ops-panel__list li::before { background: var(--color-accent); }
+body.theme-light .ops-panel__metrics { border-top-color: rgba(0, 137, 122, 0.10); }
+
+/* ══════════════════════════════════════════════════════════
+   CONTACT (index.html)
+   Robot right-bottom → transparent right edge.
+   ══════════════════════════════════════════════════════════ */
+body.theme-light .section--contact {
+  background: linear-gradient(to right,
+    var(--color-bg) 0%,
+    var(--color-bg) 52%,
+    rgba(236, 249, 247, 0.30) 80%,
+    rgba(236, 249, 247, 0.04) 100%
+  );
+}
+body.theme-light .field-group input,
+body.theme-light .field-group textarea {
+  border-bottom-color: rgba(0, 137, 122, 0.22);
+  color: var(--color-text);
+  background: transparent;
+}
+body.theme-light .field-group input:focus,
+body.theme-light .field-group textarea:focus {
+  border-bottom-color: var(--color-accent);
+}
+body.theme-light .field-group label { color: var(--color-text-muted); }
+body.theme-light .contact__aside {
+  background: rgba(220, 248, 244, 0.72);
+  border-color: rgba(0, 137, 122, 0.16);
+  backdrop-filter: blur(3px);
+  box-shadow: 0 2px 18px -4px rgba(0, 137, 122, 0.10);
+}
+body.theme-light .aside__value a:hover {
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
+}
+body.theme-light .contact__submit.is-success {
+  background: linear-gradient(135deg, #00897a 0%, #00c4b4 100%);
+}
+body.theme-light .footer { border-top-color: rgba(0, 137, 122, 0.12); }
+
+/* ══════════════════════════════════════════════════════════
+   SOLUTIONS PAGE — hero
+   ══════════════════════════════════════════════════════════ */
+body.theme-light #sol-hero { background: transparent; }
+body.theme-light .sol-hero h1 {
+  background: var(--grad-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+body.theme-light .sol-hero h1 em {
+  background: var(--grad-accent);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+body.theme-light .sol-hero__lede { color: var(--color-text-soft); }
+
+/* ══════════════════════════════════════════════════════════
+   SOLUTIONS PAGE — migration
+   Red halo left (on-prem), teal halo right (cloud)
+   ══════════════════════════════════════════════════════════ */
+body.theme-light #sol-migration {
+  /* NO solid var(--color-bg) — sections must stay transparent so the
+     canvas robot shows through.  Tinted radial halos only. */
+  background:
+    radial-gradient(1000px 600px at 12% 55%, rgba(200, 50, 50, 0.14), transparent 60%),
+    radial-gradient(1000px 600px at 88% 45%, rgba(0, 195, 178, 0.16), transparent 60%);
+}
+body.theme-light .migration-side--onprem {
+  background: radial-gradient(ellipse 85% 75% at 50% 55%,
+    rgba(200, 50, 50, 0.08) 0%, transparent 70%);
+  border-radius: var(--radius);
+  padding: 0.5rem;
+}
+body.theme-light .migration-side--cloud {
+  background: radial-gradient(ellipse 85% 75% at 50% 55%,
+    rgba(0, 195, 178, 0.09) 0%, transparent 70%);
+  border-radius: var(--radius);
+  padding: 0.5rem;
+}
+body.theme-light .migration-side__label { color: var(--color-text-muted); }
+body.theme-light .mig-step {
+  background: rgba(255, 255, 255, 0.76);
+  border-color: rgba(0, 137, 122, 0.20);
+  border-left-color: var(--color-accent);
+  backdrop-filter: blur(3px);
+  box-shadow: 0 2px 14px -3px rgba(0, 137, 122, 0.12);
+}
+body.theme-light .mig-step:hover {
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 4px 24px -4px rgba(0, 137, 122, 0.18);
+}
+body.theme-light .mig-step__name  { color: var(--color-text); }
+body.theme-light .mig-step__desc  { color: var(--color-text-muted); }
+body.theme-light .mig-step__num {
+  color: var(--color-accent);
+  background: rgba(0, 195, 178, 0.12);
+}
+body.theme-light .mig-step__arrow { opacity: 0.35; }
+body.theme-light .migration-conn-wrap { opacity: 0.32; }
+body.theme-light .migration-stats .sol-metric {
+  background: rgba(220, 248, 244, 0.82);
+  border-color: rgba(0, 137, 122, 0.18);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 2px 14px -3px rgba(0, 137, 122, 0.10);
+}
+
+/* ══════════════════════════════════════════════════════════
+   SOLUTIONS PAGE — OPS
+   ══════════════════════════════════════════════════════════ */
+body.theme-light #sol-ops {
+  background:
+    radial-gradient(1100px 700px at 25% 45%, rgba(0, 195, 178, 0.15), transparent 60%),
+    radial-gradient(1100px 700px at 75% 55%, rgba(94, 24, 228, 0.14), transparent 60%);
+}
+body.theme-light .ops-hub-ring--outer {
+  border-color: rgba(0, 137, 122, 0.32);
+  animation: glowPulseLight 2.5s ease-in-out infinite;
+}
+body.theme-light .ops-hub-ring--inner {
+  border-color: rgba(0, 137, 122, 0.55);
+  background: rgba(0, 195, 178, 0.08);
+}
+body.theme-light .ops-hub-label { color: var(--color-accent); }
+
+body.theme-light #card-devops {
+  background: linear-gradient(140deg, rgba(0, 195, 178, 0.12) 0%, rgba(255,255,255,0.85) 55%);
+  border-color: rgba(0, 137, 122, 0.22);
+  backdrop-filter: blur(3px);
+  box-shadow: 0 2px 20px -4px rgba(0, 137, 122, 0.12);
+}
+body.theme-light #card-itops {
+  background: linear-gradient(140deg, rgba(94, 24, 228, 0.10) 0%, rgba(255,255,255,0.85) 55%);
+  border-color: rgba(94, 24, 228, 0.20);
+  backdrop-filter: blur(3px);
+  box-shadow: 0 2px 20px -4px rgba(94, 24, 228, 0.10);
+}
+body.theme-light #card-secops {
+  background: linear-gradient(140deg, rgba(200, 50, 50, 0.10) 0%, rgba(255,255,255,0.85) 55%);
+  border-color: rgba(200, 50, 50, 0.20);
+  backdrop-filter: blur(3px);
+  box-shadow: 0 2px 20px -4px rgba(200, 50, 50, 0.10);
+}
+body.theme-light #card-finops {
+  background: linear-gradient(140deg, rgba(154, 118, 0, 0.10) 0%, rgba(255,255,255,0.85) 55%);
+  border-color: rgba(154, 118, 0, 0.20);
+  backdrop-filter: blur(3px);
+  box-shadow: 0 2px 20px -4px rgba(154, 118, 0, 0.10);
+}
+/* backdrop-filter reduced from 14px → 3px so robot shows through the glass */
+body.theme-light .ops-card-new {
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+body.theme-light .ops-card-new:hover   { background: rgba(255, 255, 255, 0.92); }
+body.theme-light .ops-card-new h3      { color: var(--color-text); }
+body.theme-light .ops-card-new ul li   { color: var(--color-text-soft); }
+body.theme-light .ops-card-new__num    { background: rgba(0, 195, 178, 0.10); }
+
+/* ══════════════════════════════════════════════════════════
+   SOLUTIONS PAGE — AI section
+   ══════════════════════════════════════════════════════════ */
+body.theme-light #sol-ai {
+  background:
+    radial-gradient(1100px 700px at 72% 42%, rgba(94, 24, 228, 0.16), transparent 60%),
+    radial-gradient(1000px 650px at 18% 62%, rgba(0, 195, 178, 0.12), transparent 60%);
+}
+body.theme-light .ai-list li { color: var(--color-text-soft); }
+body.theme-light .ai-metrics .sol-metric {
+  background: rgba(235, 225, 255, 0.80);
+  border-color: rgba(94, 24, 228, 0.18);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 2px 14px -3px rgba(94, 24, 228, 0.10);
+}
+body.theme-light .ai-network-svg {
+  filter: saturate(0.55) brightness(0.78) contrast(1.12);
+  opacity: 0.72;
+}
+
+/* ══════════════════════════════════════════════════════════
+   SOLUTIONS PAGE — SOC
+   ══════════════════════════════════════════════════════════ */
+body.theme-light #sol-soc {
+  background:
+    radial-gradient(1100px 700px at 52% 48%, rgba(200, 50, 50, 0.14), transparent 60%),
+    radial-gradient(900px 600px at 85% 18%, rgba(94, 24, 228, 0.10), transparent 60%);
+}
+body.theme-light .sol-copy h3         { color: var(--color-text); }
+body.theme-light .sol-copy .sol-lede  { color: var(--color-text-soft); }
+body.theme-light .sol-copy ul li      { color: var(--color-text-soft); }
+body.theme-light .sol-copy ul li::before { color: var(--color-accent); }
+body.theme-light .soc-layout .sol-metric {
+  background: rgba(255, 228, 228, 0.82);
+  border-color: rgba(200, 50, 50, 0.18);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 2px 14px -3px rgba(200, 50, 50, 0.09);
+}
+body.theme-light .hub-diagram {
+  filter: saturate(0.48) brightness(0.74) contrast(1.16);
+  opacity: 0.68;
+}
+body.theme-light .soc-scanline { opacity: 0.16; }
+
+/* General sol-metric fallback */
+body.theme-light .sol-metric {
+  background: rgba(255, 255, 255, 0.78);
+  border-color: rgba(0, 137, 122, 0.14);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 2px 14px -3px rgba(0, 137, 122, 0.09);
+}
+
+/* Footer strip */
+body.theme-light .sol-footer-strip {
+  border-top-color: rgba(0, 137, 122, 0.16);
+  background: linear-gradient(to bottom,
+    transparent 0%, rgba(0, 195, 178, 0.04) 100%);
+}
+body.theme-light .sol-footer-strip p { color: var(--color-text-soft); }
+
+/* ══════════════════════════════════════════════════════════
+   OPS SOLAR — light mode overrides
+   ══════════════════════════════════════════════════════════ */
+body.theme-light .ops-planet-card {
+  background: rgba(255, 255, 255, 0.82);
+  border-color: rgba(15, 15, 40, 0.10);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 2px 16px rgba(15, 15, 40, 0.07);
+}
+body.theme-light .ops-planet-name   { color: var(--color-text); }
+body.theme-light .ops-planet-desc   { color: var(--color-text-muted); }
+
+body.theme-light .ops-hub-body {
+  background: radial-gradient(circle,
+    rgba(0, 137, 122, 0.15) 0%,
+    rgba(0, 137, 122, 0.04) 65%,
+    transparent 100%);
+  border-color: rgba(0, 137, 122, 0.60);
+  box-shadow:
+    0 0 30px rgba(0, 137, 122, 0.16),
+    inset 0 0 18px rgba(0, 137, 122, 0.08);
+}
+body.theme-light .ops-hub-text { color: var(--color-accent); }
+body.theme-light .ops-hub-sub  { color: rgba(0, 137, 122, 0.58); }
+body.theme-light .ops-hub-corona {
+  border-color: rgba(0, 137, 122, 0.22);
+}
+body.theme-light .ops-hub-corona--2 {
+  border-color: rgba(0, 137, 122, 0.10);
+}
+body.theme-light .ops-orbit-track-svg {
+  stroke: rgba(0, 137, 122, 0.22) !important;
+}
+body.theme-light .ops-mobile-planet {
+  background: rgba(255, 255, 255, 0.82);
+  border-color: rgba(15, 15, 40, 0.10);
+}
+body.theme-light .ops-mobile-hub {
+  border-color: rgba(0, 137, 122, 0.55);
+  background: rgba(0, 137, 122, 0.07);
+  color: var(--color-accent);
+  box-shadow: 0 0 20px rgba(0, 137, 122, 0.12);
+}
+
+/* ══════════════════════════════════════════════════════════
+   TECH-PARALLAX AMBIENT ELEMENTS
+   ══════════════════════════════════════════════════════════ */
+body.theme-light .section-ghost-num {
+  -webkit-text-stroke: 1px rgba(0, 137, 122, 0.06);
+}
+body.theme-light .data-streams-sidebar { opacity: 0.25; }
+body.theme-light .data-pipe            { background: rgba(0, 137, 122, 0.08); }
+body.theme-light .tech-node {
+  border-color: rgba(0, 137, 122, 0.16);
+  background: rgba(0, 195, 178, 0.04);
+}
+body.theme-light .migration-conn-wrap  { opacity: 0.30; }
+
+/* ══════════════════════════════════════════════════════════
+   glowPulse override — soft teal ring
+   ══════════════════════════════════════════════════════════ */
+@keyframes glowPulseLight {
+  0%, 100% { box-shadow: 0 0 0 2px rgba(0, 195, 178, 0.18); }
+  50%       { box-shadow: 0 0 20px rgba(0, 195, 178, 0.36); }
+}
+
+/* ══════════════════════════════════════════════════════════
+   ADMIN TOOLBAR
+   ══════════════════════════════════════════════════════════ */
+body.theme-light #admin-toolbar {
+  background: rgba(240, 252, 250, 0.94);
+  border-color: rgba(0, 137, 122, 0.26);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 0 1px rgba(0, 137, 122, 0.08), 0 12px 40px -8px rgba(0, 100, 90, 0.18);
+  color: var(--color-text-soft);
+}
+body.theme-light .adm-btn {
+  background: rgba(0, 137, 122, 0.04);
+  border-color: rgba(0, 137, 122, 0.12);
+  color: var(--color-text-soft);
+}
+body.theme-light .adm-btn:hover {
+  background: rgba(0, 195, 178, 0.10);
+  border-color: rgba(0, 137, 122, 0.30);
+  color: var(--color-accent);
+}
+body.theme-light .adm-sep { background: rgba(0, 137, 122, 0.12); }
+body.theme-light .adm-status {
+  background: rgba(0, 195, 178, 0.10);
+  color: var(--color-accent);
+  border-color: rgba(0, 137, 122, 0.22);
+}
+body.theme-light .admin-editable--active {
+  outline-color: rgba(0, 137, 122, 0.85) !important;
+  background: rgba(0, 195, 178, 0.06) !important;
+}
+
+/* ══════════════════════════════════════════════════════════
+   TARGETED TRANSITIONS — explicit, no wildcards
+   ══════════════════════════════════════════════════════════ */
+#bg-canvas, body,
+.zynape-nav, .nav-item,
+.speech-bubble, .speech-bubble__tail,
+.home__eyebrow,
+.home__logo .char,
+.home__logo .char:nth-child(1),
+.home__logo .char:nth-child(2),
+.home__logo .char:nth-child(3),
+.home__logo .char:nth-child(4),
+.home__logo .char:nth-child(5),
+.home__logo .char:nth-child(6),
+.domain-card, .domain-card__detail, .domain-card__close, .domain-detail__viz,
+.section--operations,
+.ops-panel, .ops-panel--cloud, .ops-panel--soc, .ops-panel--noc,
+.ops-panel__viz, .ops-tag,
+.section--contact, .field-group input, .field-group textarea,
+.contact__aside, .footer,
+.btn,
+.mig-step,
+.ops-card-new,
+#card-devops, #card-itops, #card-secops, #card-finops,
+.ops-hub-ring--outer, .ops-hub-ring--inner,
+.ai-network-svg, .hub-diagram,
+.sol-metric, .sol-footer-strip,
+.data-streams-sidebar, .tech-node,
+.migration-conn-wrap, .soc-scanline,
+#admin-toolbar, .adm-btn, .adm-status,
+#theme-toggle {
+  transition:
+    background        0.40s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color  0.40s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color      0.36s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow        0.36s cubic-bezier(0.22, 1, 0.36, 1),
+    color             0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity           0.40s cubic-bezier(0.22, 1, 0.36, 1),
+    filter            0.40s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.aurora__blob {
+  transition:
+    opacity    0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}

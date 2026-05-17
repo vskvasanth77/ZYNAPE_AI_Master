@@ -1,0 +1,192 @@
+/* ============================================================
+ * Admin toolbar
+ * ============================================================ */
+#admin-toolbar {
+  position: fixed;
+  bottom: 1.4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.65rem;
+  background: rgba(5, 5, 16, 0.92);
+  border: 1px solid rgba(0, 245, 212, 0.35);
+  border-radius: 999px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow:
+    0 0 0 1px rgba(0, 245, 212, 0.08),
+    0 20px 60px -12px rgba(0, 0, 0, 0.8),
+    0 0 40px -8px rgba(0, 245, 212, 0.15);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: #b8b8d0;
+  white-space: nowrap;
+  user-select: none;
+  /* Entrance animation */
+  animation: admSlideUp 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes admSlideUp {
+  from { opacity: 0; transform: translateX(-50%) translateY(14px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+.adm-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.42rem;
+  padding: 0 0.5rem 0 0.25rem;
+  color: #00f5d4;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+.adm-status {
+  padding: 0.18rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.67rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  transition: background 0.3s, color 0.3s;
+  background: rgba(0, 245, 212, 0.1);
+  color: #00f5d4;
+  border: 1px solid rgba(0, 245, 212, 0.25);
+}
+.adm-status--saved     { background: rgba(0, 245, 212, 0.12); color: #00f5d4; border-color: rgba(0, 245, 212, 0.3); }
+.adm-status--draft     { background: rgba(255, 224, 102, 0.12); color: #ffe066; border-color: rgba(255, 224, 102, 0.3); }
+.adm-status--exported  { background: rgba(123, 47, 247, 0.15); color: #c0a0ff; border-color: rgba(123, 47, 247, 0.35); }
+.adm-status--imported  { background: rgba(0, 212, 255, 0.12); color: #00d4ff; border-color: rgba(0, 212, 255, 0.3); }
+.adm-status--reset     { background: rgba(255, 107, 107, 0.12); color: #ff6b6b; border-color: rgba(255, 107, 107, 0.3); }
+
+.adm-sep {
+  width: 1px;
+  height: 18px;
+  background: rgba(232, 232, 240, 0.12);
+  margin: 0 0.2rem;
+}
+
+.adm-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  padding: 0.38rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(232, 232, 240, 0.1);
+  color: #b8b8d0;
+  font-family: inherit;
+  font-size: inherit;
+  letter-spacing: inherit;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.adm-btn:hover {
+  background: rgba(0, 245, 212, 0.1);
+  border-color: rgba(0, 245, 212, 0.35);
+  color: #00f5d4;
+}
+.adm-btn--file { cursor: pointer; }
+.adm-btn--danger:hover {
+  background: rgba(255, 107, 107, 0.1);
+  border-color: rgba(255, 107, 107, 0.35);
+  color: #ff6b6b;
+}
+.adm-btn--close:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #e8e8f0;
+}
+
+/* ============================================================
+ * Editable node affordances
+ * ============================================================ */
+
+/* Outer glow ring on hover so admin can spot editable zones */
+.admin-mode [data-edit]:not([data-edit-attr]):not(svg *) {
+  outline: 1px dashed rgba(0, 245, 212, 0.0);
+  outline-offset: 3px;
+  border-radius: 3px;
+  transition: outline-color 0.2s, background 0.2s;
+  cursor: text !important;
+}
+.admin-mode [data-edit]:not([data-edit-attr]):not(svg *):hover {
+  outline-color: rgba(0, 245, 212, 0.45);
+  background: rgba(0, 245, 212, 0.04);
+}
+
+/* Active editing state */
+.admin-editable--active {
+  outline-color: rgba(0, 245, 212, 0.8) !important;
+  background: rgba(0, 245, 212, 0.07) !important;
+  box-shadow: 0 0 0 3px rgba(0, 245, 212, 0.12);
+}
+
+/* Small "edit path" tooltip shown as ::before on hover */
+.admin-mode [data-edit]:not([data-edit-attr]):not(svg *):hover::before {
+  content: attr(data-edit);
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: 10000;
+  padding: 0.2rem 0.5rem;
+  background: rgba(5, 5, 16, 0.95);
+  border: 1px solid rgba(0, 245, 212, 0.3);
+  border-radius: 4px;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  color: #00f5d4;
+  white-space: nowrap;
+  pointer-events: none;
+  /* The position: relative that makes this work is on the element itself */
+}
+.admin-mode [data-edit]:not([data-edit-attr]):not(svg *) {
+  position: relative;
+}
+
+/* Make sure contenteditable elements don't inherit cursor:none in admin */
+.admin-mode [contenteditable] {
+  cursor: text !important;
+}
+
+/* ============================================================
+ * Body-level admin-mode tweaks
+ * ============================================================ */
+body.admin-mode,
+body.admin-mode button,
+body.admin-mode a {
+  cursor: auto;
+}
+
+/* Keep main nav visible so admin can navigate while editing */
+body.admin-mode .zynape-nav {
+  pointer-events: auto !important;
+  opacity: 1 !important;
+}
+
+/* Slight bottom padding so toolbar doesn't overlap footer */
+body.admin-mode #page {
+  padding-bottom: 5rem;
+}
+
+/* ============================================================
+ * Responsive — stack toolbar vertically on small screens
+ * ============================================================ */
+@media (max-width: 640px) {
+  #admin-toolbar {
+    bottom: 0.6rem;
+    left: 0.6rem;
+    right: 0.6rem;
+    transform: none;
+    border-radius: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4rem 0.35rem;
+    padding: 0.65rem 0.75rem;
+  }
+}
