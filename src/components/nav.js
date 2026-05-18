@@ -61,10 +61,11 @@ export function initNav() {
   });
 
   // ScrollTriggers per section update active.
+  // "solutions" is intentionally excluded — it is a separate page (/solutions.html),
+  // not a scroll section on the home page. Clicking it navigates to that page.
+  // Home page scroll sequence: home → operations → contact.
   // Guard: skip any section ID that doesn't exist on the current page.
-  // Without this check, GSAP defaults a null trigger to the viewport
-  // and fires onToggle immediately — overwriting the HTML is-active class.
-  ["home", "solutions", "operations", "contact"].forEach((id) => {
+  ["home", "operations", "contact"].forEach((id) => {
     if (!document.getElementById(id)) return;
     ScrollTrigger.create({
       trigger: `#${id}`,

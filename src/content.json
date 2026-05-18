@@ -19,6 +19,14 @@
     "service": "Here's how we work. Scroll horizontally →",
     "contact": "Let's connect — type your message."
   },
+  "solRobotMessages": {
+    "solHero":      "Welcome to Solutions — your full-stack journey starts here.",
+    "solMigration": "From on-prem iron to cloud-native. Let's migrate.",
+    "solOpsSolar":  "DevOps · ITOps · SecOps · FinOps — orbiting one intelligence core.",
+    "solAgentic":   "Voice received. Your intent is already being orchestrated across systems.",
+    "solAi":        "Intelligent pipelines, agentic systems, LLMOps — AI that ships.",
+    "solSoc":       "24/7 eyes on your perimeter. Threats caught before they breach."
+  },
   "home": {
     "eyebrow": "Engineering studio · Est. 2024",
     "brand": "ZYNAPE",

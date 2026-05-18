@@ -1,7 +1,7 @@
 /* ===== OPERATIONS — Cloud · SOC · NOC ===== */
 .section--operations {
   position: relative;
-  padding: clamp(4rem, 8vw, 7rem) 0 clamp(5rem, 9vw, 8rem);
+  padding: clamp(2rem, 4vw, 3.5rem) 0 clamp(5rem, 9vw, 8rem);
   background:
     radial-gradient(900px 500px at 8% -10%, rgba(0, 245, 212, 0.08), transparent 60%),
     radial-gradient(900px 500px at 100% 110%, rgba(123, 47, 247, 0.10), transparent 60%);
@@ -14,9 +14,13 @@
 .ops__head {
   max-width: var(--container);
   margin: 0 auto;
-  padding: clamp(2rem, 4vw, 3rem) var(--gutter) clamp(2.5rem, 5vw, 4rem);
-  text-align: left;
-  padding-left: clamp(1rem, 30vw, 22rem);
+  padding: clamp(1rem, 2vw, 1.5rem) var(--gutter) clamp(2.5rem, 5vw, 4rem);
+  text-align: center;
+}
+/* Center the lede paragraph within the ops header */
+.ops__head .section__lede {
+  margin-left: auto;
+  margin-right: auto;
 }
 .ops__head .section__title { font-size: clamp(2rem, 5vw, 3.6rem); }
 
@@ -26,7 +30,7 @@
   padding: 0 var(--gutter);
   display: grid;
   gap: clamp(1.6rem, 2.6vw, 2.4rem);
-  padding-left: clamp(1rem, 30vw, 22rem);
+  /* removed padding-left:30vw — cards now centered like the heading */
 }
 
 .ops-panel {

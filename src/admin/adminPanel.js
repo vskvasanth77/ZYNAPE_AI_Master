@@ -271,6 +271,7 @@ function buildHomePanel() {
     { id: "visibility", label: "Visibility"   },
     { id: "ops",        label: "Operations"   },
     { id: "footer",     label: "Footer"       },
+    { id: "robot",      label: "🤖 Robot"     },
   ];
   buildTabs("homeTabBar", "homeTabContent", tabs, {
     hero:       buildHeroTab,
@@ -278,7 +279,29 @@ function buildHomePanel() {
     visibility: buildVisibilityTab,
     ops:        buildOpsTab,
     footer:     buildFooterTab,
+    robot:      buildHomeRobotTab,
   });
+}
+
+function buildHomeRobotTab(container) {
+  const r = content.robotMessages || {};
+  container.innerHTML = `
+    <div class="adm-card">
+      <div class="adm-card__header">
+        <span class="adm-card__title">Robot Speech Bubbles — Home Page</span>
+      </div>
+      <p class="adm-muted" style="margin-bottom:1rem">These are the messages the robot says as visitors scroll through each section of the home page.</p>
+      ${field("Home section",       "robotMessages.home",       r.home       || "")}
+      ${field("Solutions section",  "robotMessages.solutions",  r.solutions  || "")}
+      ${field("Operations section", "robotMessages.operations", r.operations || "")}
+      ${field("Service section",    "robotMessages.service",    r.service    || "")}
+      ${field("Contact section",    "robotMessages.contact",    r.contact    || "")}
+    </div>
+    <div class="adm-publish-note">
+      Changes take effect after <strong>Publish</strong>. The robot reads these values on page load.
+    </div>
+  `;
+  bindFields(container);
 }
 
 function buildHeroTab(container) {
@@ -445,13 +468,37 @@ function buildSolutionsPanel() {
     { id: "domains", label: "Domain Cards" },
     { id: "solops",  label: "OPS Section"  },
     { id: "meta",    label: "SEO / Meta"   },
+    { id: "solrobot",label: "🤖 Robot"     },
   ];
   buildTabs("solTabBar", "solTabContent", tabs, {
-    header:  buildSolHeaderTab,
-    domains: buildDomainsTab,
-    solops:  buildSolOpsTab,
-    meta:    buildMetaTab,
+    header:   buildSolHeaderTab,
+    domains:  buildDomainsTab,
+    solops:   buildSolOpsTab,
+    meta:     buildMetaTab,
+    solrobot: buildSolRobotTab,
   });
+}
+
+function buildSolRobotTab(container) {
+  const r = content.solRobotMessages || {};
+  container.innerHTML = `
+    <div class="adm-card">
+      <div class="adm-card__header">
+        <span class="adm-card__title">Robot Speech Bubbles — Solutions Page</span>
+      </div>
+      <p class="adm-muted" style="margin-bottom:1rem">These are the messages the robot says as visitors scroll through each section of the solutions page.</p>
+      ${field("Hero section",           "solRobotMessages.solHero",      r.solHero      || "")}
+      ${field("Migration section",      "solRobotMessages.solMigration", r.solMigration || "")}
+      ${field("OPS Solar section",      "solRobotMessages.solOpsSolar",  r.solOpsSolar  || "")}
+      ${field("Agentic Voice Bot",      "solRobotMessages.solAgentic",   r.solAgentic   || "")}
+      ${field("AI & Automation",        "solRobotMessages.solAi",        r.solAi        || "")}
+      ${field("SOC section",            "solRobotMessages.solSoc",       r.solSoc       || "")}
+    </div>
+    <div class="adm-publish-note">
+      Changes take effect after <strong>Publish</strong>. The robot reads these values on page load.
+    </div>
+  `;
+  bindFields(container);
 }
 
 function buildSolHeaderTab(container) {

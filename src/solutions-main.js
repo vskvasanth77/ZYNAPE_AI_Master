@@ -1,3 +1,4 @@
+import * as THREE from "three";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TextPlugin } from "gsap/TextPlugin";
@@ -19,6 +20,7 @@ import { showSpeechBubble, hideSpeechBubble, updateBubblePosition } from "./comp
 
 import { device } from "./utils/deviceDetection.js";
 import { initSolutionsPageAnimations } from "./animations/solutionsPageAnimations.js";
+import { getValue } from "./admin/contentStore.js";
 
 gsap.registerPlugin(ScrollTrigger, TextPlugin, ScrollToPlugin);
 
@@ -49,12 +51,81 @@ window.addEventListener("mousemove", (e) => {
   camTargetY = 0.5 - dy;
 });
 
+// ── Robot collision avoidance (screen-space steering) ─────────
+// GSAP owns orient.position. We own robot.position (root offset).
+// No conflict — the two layers stack additively.
+const _avoidWP  = new THREE.Vector3();
+let avoidX = 0, avoidY = 0;     // current smooth root offset (world units)
+let avoidTX = 0, avoidTY = 0;   // target offset
+let avoidTick = 0;
+
+const AVOID_SEL = [
+  ".section__head",
+  ".ops-unified-stage",
+  ".agentic-svg-stage",
+  ".ai-pipeline-stage",
+].join(", ");
+
+function checkRobotAvoidance() {
+  if (!robot?.userData?.orient) return;
+
+  // World position of the robot's orient group (includes GSAP tweens)
+  robot.userData.orient.getWorldPosition(_avoidWP);
+
+  // Project to screen
+  const ndc = _avoidWP.clone().project(camera);
+  const sw  = window.innerWidth;
+  const sh  = window.innerHeight;
+  const sx  = (ndc.x  + 1) / 2 * sw;
+  const sy  = (1 - (ndc.y + 1) / 2) * sh;
+
+  // Approximate robot bounding box in screen pixels
+  const sc   = robot.userData.orient.scale.x;
+  const padX = sc * 160;
+  const padY = sc * 220;
+  const rb   = { l: sx - padX, r: sx + padX, t: sy - padY, b: sy + padY };
+
+  let tX = 0, tY = 0;
+
+  document.querySelectorAll(AVOID_SEL).forEach(el => {
+    const r = el.getBoundingClientRect();
+    if (!r.width || r.bottom < 0 || r.top > sh) return;
+
+    // AABB overlap
+    if (rb.r > r.left && rb.l < r.right && rb.b > r.top && rb.t < r.bottom) {
+      // Push further in the direction the robot is already leaning
+      const dir = robot.userData.orient.position.x >= 0 ? 1 : -1;
+      tX += dir * 0.38;
+      // Slight vertical nudge away from content centre
+      const contentCY = (r.top + r.bottom) / 2;
+      tY += sy > contentCY ? 0.18 : -0.18;
+    }
+  });
+
+  // Clamp so robot never vanishes completely off-screen
+  avoidTX = Math.max(-0.75, Math.min(0.75, tX));
+  avoidTY = Math.max(-0.55, Math.min(0.55, tY));
+}
+
 // ── Render loop ───────────────────────────────────────────────
 gsap.ticker.add(() => {
   camera.position.x += (camTargetX - camera.position.x) * 0.04;
   camera.position.y += (camTargetY - camera.position.y) * 0.04;
   camera.lookAt(0, 0.2, 0);
   if (robot?.userData?.head) updateBubblePosition(robot.userData.head, camera);
+
+  // Avoidance check every 8 frames (~7 Hz at 60 fps — cheap enough)
+  if (++avoidTick % 8 === 0) checkRobotAvoidance();
+
+  // Smooth lerp: snappy when pushing away, gentle when returning
+  const spd = (avoidTX !== 0 || avoidTY !== 0) ? 0.08 : 0.04;
+  avoidX += (avoidTX - avoidX) * spd;
+  avoidY += (avoidTY - avoidY) * spd;
+
+  // Apply root offset — GSAP never touches robot.position, only orient.position
+  robot.position.x = avoidX;
+  robot.position.y = avoidY;
+
   renderer.render(scene, camera);
 });
 
@@ -90,11 +161,12 @@ function setupSolutionsRobot(robot) {
 
   // ── Speech messages ──────────────────────────────────────────
   const MESSAGES = {
-    "sol-hero":      "Welcome to Solutions — your full-stack journey starts here.",
-    "sol-migration": "From on-prem iron to cloud-native. Let's migrate.",
-    "sol-ops-solar": "DevOps · ITOps · SecOps · FinOps — orbiting one intelligence core.",
-    "sol-ai":        "Intelligent pipelines, agentic systems, LLMOps — AI that ships.",
-    "sol-soc":       "24/7 eyes on your perimeter. Threats caught before they breach.",
+    "sol-hero":      getValue("solRobotMessages.solHero")      || "Welcome to Solutions — your full-stack journey starts here.",
+    "sol-migration": getValue("solRobotMessages.solMigration") || "From on-prem iron to cloud-native. Let's migrate.",
+    "sol-ops-solar": getValue("solRobotMessages.solOpsSolar")  || "DevOps · ITOps · SecOps · FinOps — orbiting one intelligence core.",
+    "sol-agentic":   getValue("solRobotMessages.solAgentic")   || "Voice received. Your intent is already being orchestrated across systems.",
+    "sol-ai":        getValue("solRobotMessages.solAi")        || "Intelligent pipelines, agentic systems, LLMOps — AI that ships.",
+    "sol-soc":       getValue("solRobotMessages.solSoc")       || "24/7 eyes on your perimeter. Threats caught before they breach.",
   };
 
   let activeSection = null;
@@ -109,18 +181,18 @@ function setupSolutionsRobot(robot) {
   // Each entry: trigger id, position target, scale, rotation-y, gesture fn, side drift
   const sections = [
     {
-      // sol-hero — right side, scale matches home robot prominence
+      // sol-hero — right side, nudged right and down
       id:      "sol-hero",
-      pos:     (w) => ({ x:  2.38 * w, y: -0.80, z: 0.0 }),
+      pos:     (w) => ({ x:  3.00 * w, y: -1.50, z: 0.0 }),
       scale:   0.78,
       rotY:   -0.32,
       gesture: (r) => playWave(r),
       drift: { yRange: 0.15, xSide: "right" },
     },
     {
-      // sol-migration — extreme bottom-left corner, below and left of rack
+      // sol-migration — left side, above the diagram in the empty zone
       id:      "sol-migration",
-      pos:     (w) => ({ x: -2.72 * w, y: -1.50, z: 0.1 }),
+      pos:     (w) => ({ x: -2.72 * w, y: 0.80, z: 0.1 }),
       scale:   0.50,
       rotY:    0.40,
       gesture: (r) => playPoint(r),
@@ -136,20 +208,28 @@ function setupSolutionsRobot(robot) {
       drift: { yRange: 0.14, xSide: "right" },
     },
     {
-      // sol-ai — right, behind neural-network viz. Large scale so
-      // robot is visible through the glass viz container.
+      // sol-agentic — pushed further right, clear of diagram; scale -15%
+      id:      "sol-agentic",
+      pos:     (w) => ({ x: 4.00 * w, y: -0.62, z: 0.3 }),
+      scale:   0.58,
+      rotY:   -0.34,
+      gesture: (r) => playWave(r),
+      drift: { yRange: 0.13, xSide: "right" },
+    },
+    {
+      // sol-ai — pushed far right, clear of neural-network viz; scale -15%
       id:      "sol-ai",
-      pos:     (w) => ({ x: 2.35 * w, y: -0.65, z: 0.3 }),
-      scale:   0.75,
+      pos:     (w) => ({ x: 4.00 * w, y: -0.65, z: 0.3 }),
+      scale:   0.58,
       rotY:   -0.36,
       gesture: (r) => playPoint(r),
       drift: { yRange: 0.14, xSide: "right" },
     },
     {
-      // sol-soc — right side beside the hub diagram
+      // sol-soc — pushed far right, clear of hub diagram; scale -15%
       id:      "sol-soc",
-      pos:     (w) => ({ x: 2.35 * w, y: -0.60, z: 0.3 }),
-      scale:   0.72,
+      pos:     (w) => ({ x: 4.40 * w, y: -0.60, z: 0.3 }),
+      scale:   0.58,
       rotY:   -0.38,
       gesture: (r) => playScan(r),
       drift: { yRange: 0.13, xSide: "right" },
@@ -231,14 +311,13 @@ function setupSolutionsRobot(robot) {
 // ─────────────────────────────────────────────────────────────
 function initSectionAnimations() {
 
-  // Hero — stagger children in
-  gsap.timeline({
-    scrollTrigger: { trigger: "#sol-hero", start: "top 80%", once: true },
-  })
-    .to(".sol-hero__eyebrow", { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" })
-    .to(".sol-hero h1",       { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, "-=0.3")
-    .to(".sol-hero__lede",    { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, "-=0.4")
-    .to(".sol-hero__actions", { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, "-=0.3");
+  // Hero — stagger children in using gsap.from() so content is
+  // always visible even if animation doesn't fire (e.g. refresh, fast load)
+  gsap.timeline({ delay: 0.15 })
+    .from(".sol-hero__eyebrow", { opacity: 0, y: 18, duration: 0.7, ease: "power3.out" })
+    .from(".sol-hero h1",       { opacity: 0, y: 24, duration: 0.9, ease: "power3.out" }, "-=0.4")
+    .from(".sol-hero__lede",    { opacity: 0, y: 18, duration: 0.7, ease: "power3.out" }, "-=0.4")
+    .from(".sol-hero__actions", { opacity: 0, y: 16, duration: 0.6, ease: "power3.out" }, "-=0.3");
 
   // Section headers (eyebrow + title + lede)
   ["sol-migration", "sol-ops-solar", "sol-ai", "sol-soc"].forEach((id) => {
@@ -557,10 +636,71 @@ function initOpsSolarAnimation() {
 // ─────────────────────────────────────────────────────────────
 // INIT
 // ─────────────────────────────────────────────────────────────
+function initSocAnimations() {
+  const soc = document.getElementById("sol-soc");
+  if (!soc) return;
+
+  const bg  = soc.querySelector(".soc-parallax-bg");
+  const mid = soc.querySelector(".soc-parallax-mid");
+
+  // Parallax: background moves at 0.25× scroll speed, mid at 0.12×
+  gsap.to(bg, {
+    yPercent: -18,
+    ease: "none",
+    scrollTrigger: { trigger: soc, start: "top bottom", end: "bottom top", scrub: 1.2 },
+  });
+  gsap.to(mid, {
+    yPercent: -9,
+    ease: "none",
+    scrollTrigger: { trigger: soc, start: "top bottom", end: "bottom top", scrub: 1.2 },
+  });
+
+  // SOC Core entrance: scale-in with spring bounce
+  gsap.from(".soc-core-entrance", {
+    scale: 0.55, opacity: 0, duration: 1.5, ease: "back.out(1.6)",
+    scrollTrigger: { trigger: soc, start: "top 68%", once: true },
+  });
+
+  // Threat nodes stagger-in from the left
+  gsap.from([
+    soc.querySelectorAll(".soc-node")[0],
+    soc.querySelectorAll(".soc-node")[1],
+    soc.querySelectorAll(".soc-node")[2],
+    soc.querySelectorAll(".soc-node")[3],
+  ], {
+    x: -60, opacity: 0, stagger: 0.12, duration: 0.9, ease: "power3.out",
+    scrollTrigger: { trigger: soc, start: "top 70%", once: true },
+  });
+
+  // Protected asset nodes stagger-in from the right
+  gsap.from([
+    soc.querySelectorAll(".soc-node")[10],
+    soc.querySelectorAll(".soc-node")[11],
+    soc.querySelectorAll(".soc-node")[12],
+    soc.querySelectorAll(".soc-node")[13],
+  ], {
+    x: 60, opacity: 0, stagger: 0.12, duration: 0.9, ease: "power3.out",
+    scrollTrigger: { trigger: soc, start: "top 68%", once: true },
+  });
+
+  // Feature cards stagger
+  gsap.from(soc.querySelectorAll(".soc-feat-card"), {
+    y: 38, opacity: 0, stagger: 0.12, duration: 0.85, ease: "power2.out",
+    scrollTrigger: { trigger: ".soc-feature-grid", start: "top 80%", once: true },
+  });
+
+  // Stats counter-up effect
+  gsap.from(soc.querySelectorAll(".soc-stat-item"), {
+    y: 22, opacity: 0, stagger: 0.10, duration: 0.7, ease: "power2.out",
+    scrollTrigger: { trigger: ".soc-stats-row", start: "top 85%", once: true },
+  });
+}
+
 function initAll() {
   initCursor();
   initNav();
   setupSolutionsRobot(robot);
+  initSocAnimations();
   initOpsSolarAnimation();
   initSectionAnimations();
   initSolutionsPageAnimations(lenis);
