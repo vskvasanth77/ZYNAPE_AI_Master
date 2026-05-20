@@ -15,6 +15,9 @@ import { getContent, getValue, subscribe } from "./contentStore.js";
 export function hydrateAll() {
   const content = getContent();
 
+  // DEBUG — check browser console (F12) on home page after publish
+  console.log('[HYDRATE] operations.panels[0].list:', content.operations?.panels?.[0]?.list);
+
   // --- Document <title> + meta tags
   document.title = content.meta?.title ?? document.title;
   setMeta('meta[name="description"]', content.meta?.description);

@@ -19,6 +19,40 @@
     "service": "Here's how we work. Scroll horizontally →",
     "contact": "Let's connect — type your message."
   },
+  "solSections": {
+    "hero": {
+      "eyebrow": "Solutions",
+      "title": "End-to-End Infrastructure <em>Intelligence</em>",
+      "lede": "From bare metal to cloud-native — every layer, orchestrated.",
+      "ctaPrimary": "Explore Solutions",
+      "ctaSecondary": "Talk to Us"
+    },
+    "migration": {
+      "eyebrow": "01 · Migration",
+      "title": "On-Premises to <em>Cloud</em>",
+      "lede": "Multi-cloud, multi-region, multi-team. We build the platform substrate before the product team needs to ask."
+    },
+    "ops": {
+      "eyebrow": "02 · Ops",
+      "title": "Unified <em>Ops</em> Intelligence",
+      "lede": "Four disciplines. One unified control plane — every ops category orbiting a single intelligence core."
+    },
+    "agentic": {
+      "eyebrow": "03 · Agentic AI",
+      "title": "Agentic <em>Voice Bot</em>",
+      "lede": "From a single voice command to fully orchestrated enterprise workflows — our Agentic Voice Bot listens, reasons, decides, and acts autonomously across your systems in real time."
+    },
+    "ai": {
+      "eyebrow": "04 · AI &amp; Automation",
+      "title": "Engines that <em>think</em>.",
+      "lede": "From retrieval-augmented assistants to autonomous multi-step pipelines — AI that is observable, evaluable, and safe at production scale."
+    },
+    "soc": {
+      "eyebrow": "05 · SOC",
+      "title": "Security Operations <em>Center</em>",
+      "lede": "Four concentric defense layers shield every asset — Firewall, Detection, Response, Intelligence — with the SOC Core orchestrating at the heart."
+    }
+  },
   "solRobotMessages": {
     "solHero":      "Welcome to Solutions — your full-stack journey starts here.",
     "solMigration": "From on-prem iron to cloud-native. Let's migrate.",

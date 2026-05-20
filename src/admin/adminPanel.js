@@ -145,6 +145,14 @@ function saveDraft() {
 
 function publish() {
   collectFormData();
+
+  // DEBUG — open browser console (F12) to see what is being saved
+  const debugPanels = (content.operations?.panels || []).map((p, i) => ({
+    panel: i, tag: p.tag, list: p.list, listElFound: !!document.querySelector(`[data-list-path="operations.panels[${i}].list"]`)
+  }));
+  console.log('[ADMIN PUBLISH] operations.panels:', JSON.stringify(debugPanels, null, 2));
+  console.log('[ADMIN PUBLISH] Full content.operations:', JSON.stringify(content.operations, null, 2));
+
   localStorage.setItem(DRAFT_KEY,    JSON.stringify(content));
   localStorage.setItem(CONTENT_KEY,  JSON.stringify(content));
   isDirty = false;
@@ -165,10 +173,43 @@ function logout() {
 
 // ── Form → content collector ───────────────────────────────
 function collectFormData() {
+  // 1. Scalar fields (inputs / plain textareas)
   document.querySelectorAll("[data-content-path]").forEach(el => {
     const path = el.dataset.contentPath;
     const val  = el.tagName === "INPUT" && el.type === "checkbox" ? el.checked : el.value;
     setPath(content, path, val);
+  });
+
+  // 2. Operations panels — direct reference mutation, no path parsing
+  if (content.operations && Array.isArray(content.operations.panels)) {
+    content.operations.panels.forEach((panel, i) => {
+      const lEl = document.querySelector(`[data-list-path="operations.panels[${i}].list"]`);
+      if (lEl) panel.list = lEl.value.split("\n").map(s => s.trim()).filter(Boolean);
+
+      const mEl = document.querySelector(`[data-metrics-path="operations.panels[${i}].metrics"]`);
+      if (mEl) panel.metrics = parseMetricsText(mEl.value);
+    });
+  }
+
+  // 3. Solutions domain cards — direct reference mutation
+  if (content.solutions && Array.isArray(content.solutions.domains)) {
+    content.solutions.domains.forEach((domain, i) => {
+      if (!domain.detail) return;
+      const lEl = document.querySelector(`[data-list-path="solutions.domains[${i}].detail.list"]`);
+      if (lEl) domain.detail.list = lEl.value.split("\n").map(s => s.trim()).filter(Boolean);
+
+      const mEl = document.querySelector(`[data-metrics-path="solutions.domains[${i}].detail.metrics"]`);
+      if (mEl) domain.detail.metrics = parseMetricsText(mEl.value);
+    });
+  }
+}
+
+function parseMetricsText(text) {
+  return text.split("\n").map(s => s.trim()).filter(Boolean).map(line => {
+    const idx = line.indexOf("|");
+    return idx === -1
+      ? { strong: line, label: "" }
+      : { strong: line.slice(0, idx).trim(), label: line.slice(idx + 1).trim() };
   });
 }
 
@@ -427,24 +468,31 @@ function buildOpsTab(container) {
       <div class="adm-card__header">
         <span class="adm-card__title">Operations Header</span>
       </div>
-      ${field("Eyebrow",   "operations.eyebrow", ops.eyebrow || "")}
-      ${field("Title",     "operations.title",   ops.title   || "", "textarea", "sm")}
-      ${field("Sub-text",  "operations.lede",    ops.lede    || "", "textarea")}
+      ${field("Eyebrow",  "operations.eyebrow", ops.eyebrow || "")}
+      ${field("Title",    "operations.title",   ops.title   || "", "textarea", "sm")}
+      ${field("Sub-text", "operations.lede",    ops.lede    || "", "textarea")}
     </div>
-    ${panels.map((p, i) => `
+    ${panels.map((p, i) => {
+      const listText    = (p.list    || []).join("\n");
+      const metricsText = (p.metrics || []).map(m => `${m.strong}|${m.label}`).join("\n");
+      return `
       <div class="adm-card">
         <div class="adm-card__header">
-          <span class="adm-card__title">Panel ${i+1}: ${p.tag || p.id}</span>
+          <span class="adm-card__title">Panel ${i+1}: ${p.tag || p.id || "Untitled"}</span>
         </div>
-        ${field("Tag label",  `operations.panels[${i}].tag`,   p.tag   || "")}
-        ${field("Title",      `operations.panels[${i}].title`, p.title || "", "textarea", "sm")}
-        ${field("Sub-text",   `operations.panels[${i}].lede`,  p.lede  || "", "textarea")}
+        ${field("Tag label", `operations.panels[${i}].tag`,   p.tag   || "")}
+        ${field("Title",     `operations.panels[${i}].title`, p.title || "", "textarea", "sm")}
+        ${field("Sub-text",  `operations.panels[${i}].lede`,  p.lede  || "", "textarea")}
         <div class="adm-field">
           <label class="adm-label">Bullet Points (one per line)</label>
-          <textarea class="adm-textarea" data-content-path="operations.panels[${i}]._listText">${(p.list||[]).join("\n")}</textarea>
+          <textarea class="adm-textarea" data-list-path="operations.panels[${i}].list">${listText}</textarea>
         </div>
-      </div>
-    `).join("")}
+        <div class="adm-field">
+          <label class="adm-label">Metrics (value|label — one per line, e.g. 99.999%|uptime SLO)</label>
+          <textarea class="adm-textarea adm-textarea--sm" data-metrics-path="operations.panels[${i}].metrics">${metricsText}</textarea>
+        </div>
+      </div>`;
+    }).join("")}
   `;
   bindFields(container);
 }
@@ -464,19 +512,58 @@ function buildFooterTab(container) {
 // ── SOLUTIONS PAGE ────────────────────────────────────────
 function buildSolutionsPanel() {
   const tabs = [
-    { id: "header",  label: "Page Header" },
-    { id: "domains", label: "Domain Cards" },
-    { id: "solops",  label: "OPS Section"  },
-    { id: "meta",    label: "SEO / Meta"   },
-    { id: "solrobot",label: "🤖 Robot"     },
+    { id: "header",   label: "Page Header"  },
+    { id: "sections", label: "Sections"     },
+    { id: "domains",  label: "Domain Cards" },
+    { id: "solops",   label: "OPS Section"  },
+    { id: "meta",     label: "SEO / Meta"   },
+    { id: "solrobot", label: "🤖 Robot"     },
   ];
   buildTabs("solTabBar", "solTabContent", tabs, {
     header:   buildSolHeaderTab,
+    sections: buildSolSectionsTab,
     domains:  buildDomainsTab,
     solops:   buildSolOpsTab,
     meta:     buildMetaTab,
     solrobot: buildSolRobotTab,
   });
+}
+
+function buildSolSectionsTab(container) {
+  const s = content.solSections || {};
+  const secs = [
+    { key: "hero",      label: "Hero",              emoji: "🏠" },
+    { key: "migration", label: "01 · Migration",    emoji: "☁️" },
+    { key: "ops",       label: "02 · Ops",          emoji: "⚙️" },
+    { key: "agentic",   label: "03 · Agentic AI",   emoji: "🎙️" },
+    { key: "ai",        label: "04 · AI & Automation", emoji: "🤖" },
+    { key: "soc",       label: "05 · SOC",          emoji: "🛡️" },
+  ];
+
+  container.innerHTML = `
+    <p class="adm-muted" style="margin-bottom:1.25rem">
+      Edit the eyebrow, heading and sub-text for each solutions page section.
+      HTML tags like <code>&lt;em&gt;</code> are supported for coloured highlights.
+    </p>
+    ${secs.map(({ key, label, emoji }) => {
+      const sec = s[key] || {};
+      return `
+      <div class="adm-card">
+        <div class="adm-card__header">
+          <span class="adm-card__title">${emoji} ${label}</span>
+        </div>
+        ${field("Eyebrow", `solSections.${key}.eyebrow`, sec.eyebrow || "")}
+        ${field("Heading",  `solSections.${key}.title`,   sec.title   || "", "textarea", "sm")}
+        ${field("Sub-text", `solSections.${key}.lede`,    sec.lede    || "", "textarea")}
+        ${key === "hero" ? `
+        <div class="adm-field-row">
+          ${field("Primary CTA",   `solSections.hero.ctaPrimary`,   sec.ctaPrimary   || "Explore Solutions")}
+          ${field("Secondary CTA", `solSections.hero.ctaSecondary`, sec.ctaSecondary || "Talk to Us")}
+        </div>` : ""}
+      </div>`;
+    }).join("")}
+  `;
+  bindFields(container);
 }
 
 function buildSolRobotTab(container) {
@@ -558,11 +645,11 @@ function buildDomainItem(d, i) {
         ${field("Modal sub-text",   `solutions.domains[${i}].detail.lede`,    det.lede    || "", "textarea")}
         <div class="adm-field">
           <label class="adm-label">Bullet points (one per line)</label>
-          <textarea class="adm-textarea" data-content-path="solutions.domains[${i}].detail._listText">${list}</textarea>
+          <textarea class="adm-textarea" data-list-path="solutions.domains[${i}].detail.list">${list}</textarea>
         </div>
         <div class="adm-field">
           <label class="adm-label">Metrics (format: value|label — one per line)</label>
-          <textarea class="adm-textarea adm-textarea--sm" data-content-path="solutions.domains[${i}].detail._metricsText" placeholder="99.99%|uptime SLO">${metrics}</textarea>
+          <textarea class="adm-textarea adm-textarea--sm" data-metrics-path="solutions.domains[${i}].detail.metrics" placeholder="99.99%|uptime SLO">${metrics}</textarea>
         </div>
       </div>
     </div>
@@ -886,7 +973,7 @@ function buildTabs(barId, contentId, tabs, builders) {
 }
 
 function bindFields(container) {
-  container.querySelectorAll("[data-content-path]").forEach(el => {
+  container.querySelectorAll("[data-content-path], [data-list-path], [data-metrics-path]").forEach(el => {
     const handler = () => {
       isDirty = true;
       setStatus("draft", "Unsaved changes");

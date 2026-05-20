@@ -21,6 +21,10 @@ import { showSpeechBubble, hideSpeechBubble, updateBubblePosition } from "./comp
 import { device } from "./utils/deviceDetection.js";
 import { initSolutionsPageAnimations } from "./animations/solutionsPageAnimations.js";
 import { getValue } from "./admin/contentStore.js";
+import { hydrateAll } from "./admin/hydrate.js";
+
+// Apply any published admin content to solutions.html data-edit nodes
+hydrateAll();
 
 gsap.registerPlugin(ScrollTrigger, TextPlugin, ScrollToPlugin);
 
